@@ -11,6 +11,19 @@
 # Run from the NixOS live ISO as root (or with sudo).
 # =============================================================================
 
+#!/usr/bin/env bash
+# =============================================================================
+# nixos-bootstrap.sh
+# Partitions a disk with btrfs, mounts subvolumes, and installs NixOS.
+#
+# Usage:
+#   curl -fsSL https://raw.githubusercontent.com/YOURNAME/dotfiles/main/nixos-bootstrap.sh | bash
+#   -- or --
+#   bash nixos-bootstrap.sh
+#
+# Run from the NixOS live ISO as root (or with sudo).
+# =============================================================================
+
 set -euo pipefail
 
 # ── Colors ────────────────────────────────────────────────────────────────────
@@ -238,7 +251,8 @@ write_starter_config() {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 5;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # LTS kernel — more stable with Nvidia drivers than linuxPackages_latest
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # Nvidia + Wayland — remove these if you don't have an Nvidia GPU
   boot.kernelParams = [
@@ -246,6 +260,10 @@ write_starter_config() {
     "nvidia-drm.fbdev=1"
   ];
   boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+
+  # Required for Turing GPUs (RTX 20xx) with the open kernel module.
+  # Nvidia's open module officially targets Ampere+; this opts Turing in.
+  boot.extraModprobeConfig = "options nvidia NVreg_OpenRmEnableUnsupportedGpus=1";
 
   # ── Filesystem ──────────────────────────────────────────────────────────────
   boot.supportedFilesystems = [ "btrfs" ];
