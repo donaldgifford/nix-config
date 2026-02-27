@@ -328,7 +328,7 @@ write_starter_config() {
 
   # ── Fonts ────────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
-    noto-fonts noto-fonts-emoji
+    noto-fonts noto-fonts-color-emoji
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
@@ -404,12 +404,56 @@ print_summary() {
   echo ""
 }
 
+# ── Cleanup (for reinstalls) ──────────────────────────────────────────────────
+cleanup_existing_mounts() {
+  # Check if anything is mounted under /mnt
+  if ! findmnt | grep -q '/mnt'; then
+    return 0
+  fi
+
+  echo ""
+  warn "/mnt appears to already have mounts from a previous run:"
+  findmnt | grep '/mnt'
+  echo ""
+  prompt "Unmount everything and start fresh? (yes/no):"
+  read -r CLEANUP </dev/tty
+
+  if [[ "$CLEANUP" != "yes" ]]; then
+    error "Cannot proceed with /mnt already mounted. Unmount manually and retry."
+  fi
+
+  info "Cleaning up existing mounts..."
+
+  # Disable swap on all disk partitions
+  local swap
+  swap=$(get_part "$DISK" 2)
+  if swapon --show | grep -q "$swap"; then
+    swapoff "$swap" && info "Swap disabled: ${swap}"
+  fi
+
+  # Unmount in reverse order — nested subvolumes first
+  for mountpoint in \
+    /mnt/.snapshots \
+    /mnt/var/log \
+    /mnt/nix \
+    /mnt/home \
+    /mnt/boot \
+    /mnt; do
+    if mountpoint -q "$mountpoint" 2>/dev/null; then
+      umount "$mountpoint" && info "Unmounted: ${mountpoint}"
+    fi
+  done
+
+  success "Cleanup complete"
+}
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 main() {
   check_root
   check_nixos_iso
   check_deps
   gather_inputs
+  cleanup_existing_mounts
   partition_disk
   format_partitions
   create_subvolumes
