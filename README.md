@@ -1,6 +1,6 @@
 # Nix Dotfiles
 
-NixOS configuration for a 2080 Ti + Wayland + Sway setup. Managed declaratively via NixOS flakes and Home Manager.
+NixOS configuration for a 20XX + Wayland + Sway setup. Managed declaratively via NixOS flakes and Home Manager.
 
 ---
 

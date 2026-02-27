@@ -76,7 +76,7 @@ gather_inputs() {
     lsblk -d -o NAME,SIZE,MODEL | grep -v loop
     echo ""
     prompt "Enter disk to install to (e.g. /dev/nvme0n1 or /dev/sda):"
-    read -r DISK
+    read -r DISK </dev/tty
   fi
 
   # Validate disk exists
@@ -86,12 +86,12 @@ gather_inputs() {
 
   if [[ -z "$HOSTNAME" ]]; then
     prompt "Enter hostname for this machine:"
-    read -r HOSTNAME
+    read -r HOSTNAME </dev/tty
   fi
 
   if [[ -z "$USERNAME" ]]; then
     prompt "Enter your username:"
-    read -r USERNAME
+    read -r USERNAME </dev/tty
   fi
 
   # Confirm before doing anything destructive
@@ -100,7 +100,7 @@ gather_inputs() {
   warn "Hostname: ${HOSTNAME} | User: ${USERNAME} | Swap: ${SWAP_SIZE}"
   echo ""
   prompt "Type 'yes' to continue, anything else to abort:"
-  read -r CONFIRM
+  read -r CONFIRM </dev/tty
   if [[ "$CONFIRM" != "yes" ]]; then
     echo "Aborted."
     exit 0
