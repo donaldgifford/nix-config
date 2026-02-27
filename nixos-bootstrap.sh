@@ -267,10 +267,9 @@ write_starter_config() {
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   # ── Sway + Wayland ──────────────────────────────────────────────────────────
@@ -314,7 +313,6 @@ write_starter_config() {
     pulse.enable = true;
     wireplumber.enable = true;
   };
-  sound.enable = false;
   hardware.pulseaudio.enable = false;
 
   # ── DBus / Polkit ────────────────────────────────────────────────────────────
