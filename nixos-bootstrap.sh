@@ -21,17 +21,20 @@ BLUE='\033[0;34m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-info()    { echo -e "${BLUE}[INFO]${NC}  $*"; }
+info() { echo -e "${BLUE}[INFO]${NC}  $*"; }
 success() { echo -e "${GREEN}[OK]${NC}    $*"; }
-warn()    { echo -e "${YELLOW}[WARN]${NC}  $*"; }
-error()   { echo -e "${RED}[ERROR]${NC} $*"; exit 1; }
-prompt()  { echo -e "${BOLD}[INPUT]${NC} $*"; }
+warn() { echo -e "${YELLOW}[WARN]${NC}  $*"; }
+error() {
+  echo -e "${RED}[ERROR]${NC} $*"
+  exit 1
+}
+prompt() { echo -e "${BOLD}[INPUT]${NC} $*"; }
 
 # ── Config — edit these or they'll be prompted ────────────────────────────────
-HOSTNAME=""          # e.g. "nixbox" — prompted if empty
-USERNAME=""          # e.g. "donald" — prompted if empty
-DISK=""              # e.g. "/dev/nvme0n1" or "/dev/sda" — prompted if empty
-SWAP_SIZE="16G"      # swap partition size
+HOSTNAME=""     # e.g. "nixbox" — prompted if empty
+USERNAME=""     # e.g. "donald" — prompted if empty
+DISK=""         # e.g. "/dev/nvme0n1" or "/dev/sda" — prompted if empty
+SWAP_SIZE="16G" # swap partition size
 TIMEZONE="America/Detroit"
 
 # Where to pull configuration.nix from once you have a repo.
@@ -117,9 +120,9 @@ partition_disk() {
   # 1: EFI  (1 GiB,  FAT32)
   # 2: swap (SWAP_SIZE)
   # 3: root (remaining, btrfs)
-  sgdisk -n 1:0:+1G    -t 1:ef00 -c 1:"EFI"  "$DISK"
+  sgdisk -n 1:0:+1G -t 1:ef00 -c 1:"EFI" "$DISK"
   sgdisk -n 2:0:+${SWAP_SIZE} -t 2:8200 -c 2:"swap" "$DISK"
-  sgdisk -n 3:0:0      -t 3:8300 -c 3:"root" "$DISK"
+  sgdisk -n 3:0:0 -t 3:8300 -c 3:"root" "$DISK"
 
   partprobe "$DISK"
   sleep 2
@@ -191,12 +194,12 @@ mount_partitions() {
 
   info "Mounting subvolumes..."
 
-  mount -o "subvol=@,${OPTS}"        "$root" /mnt
+  mount -o "subvol=@,${OPTS}" "$root" /mnt
   mkdir -p /mnt/{home,nix,var/log,.snapshots,boot}
 
-  mount -o "subvol=@home,${OPTS}"    "$root" /mnt/home
-  mount -o "subvol=@nix,${OPTS}"     "$root" /mnt/nix
-  mount -o "subvol=@log,${OPTS}"     "$root" /mnt/var/log
+  mount -o "subvol=@home,${OPTS}" "$root" /mnt/home
+  mount -o "subvol=@nix,${OPTS}" "$root" /mnt/nix
+  mount -o "subvol=@log,${OPTS}" "$root" /mnt/var/log
   mount -o "subvol=@snapshots,${OPTS}" "$root" /mnt/.snapshots
   mount "$efi" /mnt/boot
 
@@ -227,7 +230,7 @@ write_configuration() {
 write_starter_config() {
   # This is a minimal but working config. Once you have your dotfiles repo,
   # replace this with a CONFIG_URL pointing to your full configuration.nix.
-  cat > /mnt/etc/nixos/configuration.nix << NIXCONFIG
+  cat >/mnt/etc/nixos/configuration.nix <<NIXCONFIG
 { config, pkgs, lib, ... }:
 
 {
@@ -268,7 +271,7 @@ write_starter_config() {
 
     # Closed/proprietary module — fully supported on Turing (RTX 20xx).
     # Open module fails DRM condition check on pre-Ampere hardware.
-    open = false;
+    open = true;
 
     nvidiaSettings = true;
 
