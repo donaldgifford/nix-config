@@ -11,19 +11,6 @@
 # Run from the NixOS live ISO as root (or with sudo).
 # =============================================================================
 
-#!/usr/bin/env bash
-# =============================================================================
-# nixos-bootstrap.sh
-# Partitions a disk with btrfs, mounts subvolumes, and installs NixOS.
-#
-# Usage:
-#   curl -fsSL https://raw.githubusercontent.com/YOURNAME/dotfiles/main/nixos-bootstrap.sh | bash
-#   -- or --
-#   bash nixos-bootstrap.sh
-#
-# Run from the NixOS live ISO as root (or with sudo).
-# =============================================================================
-
 set -euo pipefail
 
 # ── Colors ────────────────────────────────────────────────────────────────────
@@ -261,10 +248,6 @@ write_starter_config() {
   ];
   boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
-  # Required for Turing GPUs (RTX 20xx) with the open kernel module.
-  # Nvidia's open module officially targets Ampere+; this opts Turing in.
-  boot.extraModprobeConfig = "options nvidia NVreg_OpenRmEnableUnsupportedGpus=1";
-
   # ── Filesystem ──────────────────────────────────────────────────────────────
   boot.supportedFilesystems = [ "btrfs" ];
 
@@ -277,14 +260,23 @@ write_starter_config() {
   i18n.defaultLocale = "en_US.UTF-8";
 
   # ── Nvidia ──────────────────────────────────────────────────────────────────
-  # Remove this entire block if you don't have an Nvidia GPU
   services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
+    # KMS required for Wayland
     modesetting.enable = true;
-    open = true;           # supported on Turing (RTX 20xx) and newer as of driver 560+
+
+    # Closed/proprietary module — fully supported on Turing (RTX 20xx).
+    # Open module fails DRM condition check on pre-Ampere hardware.
+    open = false;
+
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # Use latest driver — nvidiaPackages.stable has a known EGL bug that
+    # breaks wlroots/Sway on Wayland. latest fixes it.
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -300,12 +292,20 @@ write_starter_config() {
     ];
   };
 
-  environment.sessionVariables = {
-    GBM_BACKEND = "nvidia-drm";
+  # Use environment.variables (not sessionVariables) so these are available
+  # to greetd and other system services, not just user sessions.
+  # WLR_DRM_DEVICES: Nvidia often enumerates as card1 instead of card0
+  # because an EFI framebuffer driver grabs card0 first at boot.
+  environment.variables = {
+    WLR_DRM_DEVICES           = "/dev/dri/card1";
+    GBM_BACKEND               = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-    MOZ_ENABLE_WAYLAND = "1";
+    WLR_NO_HARDWARE_CURSORS   = "1";
+    NIXOS_OZONE_WL            = "1";
+    MOZ_ENABLE_WAYLAND        = "1";
+    QT_QPA_PLATFORM           = "wayland";
+    SDL_VIDEODRIVER           = "wayland";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
   xdg.portal = {
@@ -392,9 +392,7 @@ generate_hardware_config() {
 run_install() {
   info "Running nixos-install (this will take a while on first run)..."
   echo ""
-  nixos-install --no-root-passwd
-  # --no-root-passwd skips setting the root password here.
-  # You'll set your user password on first login via `passwd`.
+  nixos-install
   echo ""
   success "nixos-install complete"
 }
@@ -413,8 +411,9 @@ print_summary() {
   echo ""
   echo -e "  Next steps:"
   echo -e "  1. ${BOLD}reboot${NC} and remove the USB"
-  echo -e "  2. Log in as root, then run: ${BOLD}passwd ${USERNAME}${NC} to set your password"
-  echo -e "  3. Log in as ${USERNAME} — Sway should start via greetd"
+  echo -e "  2. Log in as ${BOLD}root${NC} with the password you just set"
+  echo -e "  3. Run: ${BOLD}passwd ${NC} to set your user password"
+  echo -e "  4. Log out of root and log in as ${BOLD}${NC} — Sway will start"
   echo -e "  4. Set up your dotfiles repo and update CONFIG_URL in this script"
   echo ""
   echo -e "  Config is at: ${BOLD}/mnt/etc/nixos/${NC} (pre-reboot)"
