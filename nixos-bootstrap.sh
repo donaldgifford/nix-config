@@ -36,6 +36,11 @@ USERNAME=""     # e.g. "donald" — prompted if empty
 DISK=""         # e.g. "/dev/nvme0n1" or "/dev/sda" — prompted if empty
 SWAP_SIZE="16G" # swap partition size
 TIMEZONE="America/Detroit"
+# Pre-set these to skip the password prompts on reinstall.
+# Generate with: mkpasswd -m sha-512
+# e.g. ROOT_HASH='$6$xyz...'
+ROOT_HASH=""
+USER_HASH=""
 
 # Where to pull configuration.nix from once you have a repo.
 # Leave empty to write an inline starter config instead.
@@ -56,7 +61,7 @@ check_nixos_iso() {
 }
 
 check_deps() {
-  for cmd in sgdisk mkfs.fat mkswap mkfs.btrfs btrfs git curl; do
+  for cmd in sgdisk mkfs.fat mkswap mkfs.btrfs btrfs git curl mkpasswd; do
     if ! command -v "$cmd" &>/dev/null; then
       error "Required command not found: $cmd"
     fi
@@ -92,6 +97,37 @@ gather_inputs() {
   if [[ -z "$USERNAME" ]]; then
     prompt "Enter your username:"
     read -r USERNAME </dev/tty
+  fi
+
+  # Passwords — skipped if ROOT_HASH/USER_HASH are pre-set at top of script
+  if [[ -z "$ROOT_HASH" ]]; then
+    prompt "Set root password:"
+    read -rs ROOT_PASS </dev/tty
+    echo ""
+    prompt "Confirm root password:"
+    read -rs ROOT_PASS2 </dev/tty
+    echo ""
+    if [[ "$ROOT_PASS" != "$ROOT_PASS2" ]]; then
+      error "Root passwords do not match"
+    fi
+    ROOT_HASH=$(echo "$ROOT_PASS" | mkpasswd -m sha-512 -s)
+  else
+    info "Using pre-set root password hash"
+  fi
+
+  if [[ -z "$USER_HASH" ]]; then
+    prompt "Set password for ${USERNAME}:"
+    read -rs USER_PASS </dev/tty
+    echo ""
+    prompt "Confirm password for ${USERNAME}:"
+    read -rs USER_PASS2 </dev/tty
+    echo ""
+    if [[ "$USER_PASS" != "$USER_PASS2" ]]; then
+      error "User passwords do not match"
+    fi
+    USER_HASH=$(echo "$USER_PASS" | mkpasswd -m sha-512 -s)
+  else
+    info "Using pre-set user password hash"
   fi
 
   # Confirm before doing anything destructive
@@ -271,7 +307,7 @@ write_starter_config() {
 
     # Closed/proprietary module — fully supported on Turing (RTX 20xx).
     # Open module fails DRM condition check on pre-Ampere hardware.
-    open = true;
+    open = false;
 
     nvidiaSettings = true;
 
@@ -354,11 +390,18 @@ write_starter_config() {
   ];
 
   # ── User ─────────────────────────────────────────────────────────────────────
+  users.mutableUsers = false;  # passwords are managed declaratively
+
+  users.users.root = {
+    hashedPassword = "${ROOT_HASH}";
+  };
+
   users.users.${USERNAME} = {
     isNormalUser = true;
     description = "${USERNAME}";
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "input" ];
     shell = pkgs.zsh;
+    hashedPassword = "${USER_HASH}";
   };
   programs.zsh.enable = true;
 
