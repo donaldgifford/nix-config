@@ -1,0 +1,14 @@
+[[session]]
+name = "nix-config"
+path = "~/code/nix-config"
+startup_command = "nvim"
+
+[[plugins]]
+name = "sesh"
+prefix = ";s "
+src_once = "sesh list -d -c -t -T"
+cmd = "sesh connect --switch %RESULT%"
+keep_sort = false
+recalculate_score = true
+show_icon_when_single = true
+switcher_only = true

@@ -13,68 +13,95 @@
     # linter, and treesitter parser for that language.
     # Languages
     extras = {
-      lang.cmake = {
-        enable = true;
+      lang = {
+        cmake = {
+          enable = true;
+        };
+        docker = {
+          enable = true;
+        };
+        go = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = false;
+
+        };
+        helm = {
+          enable = true;
+        };
+        json = {
+          enable = true;
+        };
+        markdown = {
+          enable = true;
+        };
+        nix = {
+          enable = true;
+        };
+        python = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = false;
+
+        };
+        rust = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = false;
+
+        };
+        sql = {
+          enable = true;
+        };
+        tailwind = {
+          enable = true;
+        };
+        terraform = {
+          enable = true;
+        };
+        toml = {
+          enable = true;
+        };
+        typescript = {
+          enable = true;
+        };
+        typst = {
+          enable = true;
+        };
+        yaml = {
+          enable = true;
+        };
       };
-      lang.toml = {
-        enable = true;
+
+      # UI
+      ui = {
+        treesitter-context = {
+          enable = true;
+        };
       };
-      lang.typescript = {
-        enable = true;
+
+      # Editor
+      editor = {
+        navic = {
+          enable = true;
+        };
+        neo-tree = {
+          enable = true;
+        };
       };
-      lang.go = {
-        enable = true;
-        installDependencies = true;
-        installRuntimeDependencies = false;
+
+      # Utils
+      util = {
+        mini-hipatterns = {
+          enable = true;
+        };
       };
-      lang.helm = {
-        enable = true;
-      };
-      lang.docker = {
-        enable = true;
-      };
-      lang.nix = {
-        enable = true;
-      };
-      lang.terraform = {
-        enable = true;
-      };
-      lang.yaml = {
-        enable = true;
-      };
-      lang.json = {
-        enable = true;
-      };
-      lang.markdown = {
-        enable = true;
-      };
-      lang.typst = {
-        enable = true;
-      };
-      lang.bash = {
-        enable = true;
-      };
-      lang.python = {
-        enable = true;
-        installDependencies = true;
-        installRuntimeDependencies = false;
-      };
-      lang.rust = {
-        enable = true;
-        installDependencies = true;
-        installRuntimeDependencies = false;
-      };
-      ui.treesitter-context = {
-        enable = true;
-      };
-      editor.navic = {
-        enable = true;
-      };
-      editor.neo-tree = {
-        enable = true;
-      };
-      util.mini-hipatterns = {
-        enable = true;
+
+      # Coding
+      coding = {
+        mini-surround = {
+          enable = true;
+        };
       };
     };
 

@@ -5,13 +5,25 @@
   ...
 }:
 
+let
+  # 1Password SSH signing binary path differs between platforms
+  op-ssh-sign =
+    if pkgs.stdenv.isDarwin then
+      "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+    else
+      "${pkgs._1password-gui}/bin/op-ssh-sign";
+in
+
 {
   programs.git = {
     enable = true;
 
     settings = {
-      user.name = "Donald Gifford";
-      user.email = "dgifford@pm.me";
+      user = {
+        name = "Donald Gifford";
+        email = "dgifford@pm.me";
+        signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOeDUZ8unhW85b8Cu1zmEDp5CNeg0oYpvRpK1eMYQvd donald";
+      };
 
       alias = {
         s = "status -sb";
@@ -28,6 +40,8 @@
       push.autoSetupRemote = true;
       rerere.enabled = true;
       fetch.prune = true;
+      merge.conflictstyle = "diff3";
+      diff.colorMoved = "default";
 
       core = {
         editor = "nvim";
@@ -44,9 +58,14 @@
       };
 
       gpg.format = "ssh";
-      gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      "gpg \"ssh\"".program = op-ssh-sign;
       commit.gpgsign = true;
-      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOeDUZ8unhW85b8Cu1zmEDp5CNeg0oYpvRpK1eMYQvd donald";
+      tag.gpgsign = true;
     };
+  };
+
+  programs.gh = {
+    enable = true;
+    settings.git_protocol = "ssh";
   };
 }
