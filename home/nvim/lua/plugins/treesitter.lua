@@ -1,0 +1,35 @@
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
+        "bash",
+        "html",
+        "javascript",
+        "json5",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "query",
+        "regex",
+        "tsx",
+        "typescript",
+        "vim",
+        "yaml",
+        "cmake",
+        "dockerfile",
+        "go",
+        "gomod",
+        "gowork",
+        "gosum",
+        "helm",
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "rust",
+        "ron",
+      })
+    end,
+  },
+}
