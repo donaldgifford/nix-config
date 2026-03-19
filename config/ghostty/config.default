@@ -1,8 +1,7 @@
 theme = Tokyonight Night
 
 # Font
-font-family = "BerkeleyMono Nerd Font"
-font-style = "SemiCondensed"
+font-family = JetBrainsMono Nerd Font
 font-size = 16
 
 # Copy

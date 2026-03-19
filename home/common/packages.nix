@@ -53,6 +53,8 @@
       direnv
       mise
       gh # GitHub CLI
+      btop
+      yazi
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       # ── Linux-only ──────────────────────────────────────────────────────────

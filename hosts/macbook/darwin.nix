@@ -58,6 +58,7 @@
     # CLI tools that work better via brew on macOS (prefer nix when possible)
     brews = [
       "mas" # Mac App Store CLI (needed for masApps below)
+      "dlvhdr/formulae/diffnav" # diffnav
     ];
 
     # GUI applications

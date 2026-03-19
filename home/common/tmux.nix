@@ -7,25 +7,25 @@
 
 {
   # ── Sesh — smart session manager ─────────────────────────────────────────
-  programs.sesh = {
-    enable = true;
-    enableTmuxIntegration = true;
-
-    settings = {
-      plugins = [
-        {
-          name = "sesh";
-          prefix = ";s ";
-          src_once = "sesh list -d -c -t -T";
-          cmd = "sesh connect --switch %RESULT%";
-          keep_sort = false;
-          recalculate_score = true;
-          show_icon_when_single = true;
-          switcher_only = true;
-        }
-      ];
-    };
-  };
+  # programs.sesh = {
+  #   enable = true;
+  #   enableTmuxIntegration = true;
+  #
+  #   settings = {
+  #     plugins = [
+  #       {
+  #         name = "sesh";
+  #         prefix = ";s ";
+  #         src_once = "sesh list -d -c -t -T";
+  #         cmd = "sesh connect --switch %RESULT%";
+  #         keep_sort = false;
+  #         recalculate_score = true;
+  #         show_icon_when_single = true;
+  #         switcher_only = true;
+  #       }
+  #     ];
+  #   };
+  # };
 
   # ── Tmux ──────────────────────────────────────────────────────────────────
   programs.tmux = {

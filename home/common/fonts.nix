@@ -5,21 +5,37 @@
   ...
 }:
 
+# let
+#   fontDir = ./fonts;
+#
+#   targetPrefix = if pkgs.stdenv.isDarwin then "Library/Fonts" else ".local/share/fonts";
+# in
+# {
+#   home.activation.installFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+#     if [ -d "${fontDir}/BerkeleyMonoNerdFontRegular" ]; then
+#       mkdir -p "$HOME/${targetPrefix}/BerkeleyMonoNFRegular"
+#       mkdir -p "$HOME/${targetPrefix}/BerkeleyMonoNFSemiCondensed"
+#       cp -f ${fontDir}/BerkeleyMonoNerdFontRegular/*.ttf "$HOME/${targetPrefix}/BerkeleyMonoNFRegular/"
+#       cp -f ${fontDir}/BerkeleyMonoNerdFontSemiCondensed/*.ttf "$HOME/${targetPrefix}/BerkeleyMonoNFSemiCondensed/"
+#     else
+#       echo "⚠ Berkeley Mono fonts not found — skipping. Copy them to ~/code/nix-config/home/common/fonts/"
+#     fi
+#   '';
+# }
+#
 let
   fontDir = ./fonts;
+  hasBerkeleyMono = builtins.pathExists "${fontDir}/BerkeleyMonoNerdFontRegular";
 
-  # macOS uses ~/Library/Fonts, Linux uses ~/.local/share/fonts
   targetPrefix = if pkgs.stdenv.isDarwin then "Library/Fonts" else ".local/share/fonts";
 in
 {
-  home.file = {
-    "${targetPrefix}/BerkeleyMonoNFRegular" = {
-      source = "${fontDir}/BerkeleyMonoNerdFontRegular";
-      recursive = true;
-    };
-    "${targetPrefix}/BerkeleyMonoNFSemiCondensed" = {
-      source = "${fontDir}/BerkeleyMonoNerdFontSemiCondensed";
-      recursive = true;
-    };
-  };
+  home.activation.installFonts = lib.mkIf hasBerkeleyMono (
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "$HOME/${targetPrefix}/BerkeleyMonoNFRegular"
+      mkdir -p "$HOME/${targetPrefix}/BerkeleyMonoNFSemiCondensed"
+      cp -f ${fontDir}/BerkeleyMonoNerdFontRegular/*.ttf "$HOME/${targetPrefix}/BerkeleyMonoNFRegular/"
+      cp -f ${fontDir}/BerkeleyMonoNerdFontSemiCondensed/*.ttf "$HOME/${targetPrefix}/BerkeleyMonoNFSemiCondensed/"
+    ''
+  );
 }

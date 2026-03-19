@@ -2,3 +2,4 @@ result
 result-*
 .direnv/
 backup/
+home/common/fonts/**/*.ttf

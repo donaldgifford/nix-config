@@ -64,8 +64,27 @@ in
     };
   };
 
+  home.activation.installGhExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if command -v gh &> /dev/null; then
+      gh extension list | grep -q "dlvhdr/gh-enhance" || gh extension install dlvhdr/gh-enhance 2>/dev/null || echo "⚠ Failed to install gh-enhance (not logged in?)"
+    fi
+  '';
+
   programs.gh = {
     enable = true;
-    settings.git_protocol = "ssh";
+    settings = {
+      git_protocol = "ssh";
+      editor = "nvim";
+      prompt = "enabled";
+      aliases = {
+        clean-branches = "poi";
+        co = "pr checkout";
+        vpr = "pr view --web";
+        vr = "repo view --web";
+      };
+    };
+    extensions = with pkgs; [
+      gh-dash
+    ];
   };
 }
