@@ -118,7 +118,7 @@
       AppleInterfaceStyleSwitchesAutomatically = true;
 
       # Fast key repeat
-      KeyRepeat = 2;
+      KeyRepeat = 1;
       InitialKeyRepeat = 25;
 
       # Expand save/print panels by default

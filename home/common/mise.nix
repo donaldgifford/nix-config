@@ -24,7 +24,7 @@
         prettier = "3.7.4";
         golines = "latest";
         golangci-lint = "latest";
-        shellfmt = "latest";
+        shfmt = "latest";
         shellcheck = "latest";
         ruff = "latest";
         python = "3.13";
@@ -47,13 +47,13 @@
         "go:golang.org/x/tools/cmd/goimports" = "latest";
         "go:golang.org/x/tools/gopls" = "latest";
         "go:github.com/spf13/cobra-cli" = "latest";
-        "hugo" = "0.140.2";
-        "helm" = "3.19.0";
-        "helm-cr" = "1.8.1";
-        "helm-ct" = "3.14.0";
-        "helm-diff" = "3.15.0";
-        "helm-docs" = "1.14.2";
-        "typst," = "latest";
+        hugo = "0.140.2";
+        helm = "3.19.0";
+        helm-cr = "1.8.1";
+        helm-ct = "3.14.0";
+        helm-diff = "3.15.0";
+        helm-docs = "1.14.2";
+        typst = "latest";
 
       };
 

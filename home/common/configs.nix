@@ -9,12 +9,10 @@ let
   dotfiles = "${config.home.homeDirectory}/code/nix-config/config";
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
 
-  hasBerkeleyMono = builtins.pathExists ./fonts/BerkeleyMonoNerdFontRegular;
-  ghosttyConfig = if hasBerkeleyMono then "ghostty/config.berkeley" else "ghostty/config.default";
 in
 {
   xdg.configFile = {
-    "ghostty/config".source = link ghosttyConfig;
+    "ghostty/config".source = link "ghostty/config";
     "sesh/sesh.toml".source = link "sesh/sesh.toml";
     "eza/theme.yml".source = link "eza/theme.yml";
     "btop/btop.conf".source = link "btop/btop.conf";
