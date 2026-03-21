@@ -1,7 +1,21 @@
 [[session]]
-name = "nix-config"
+name = "nix-config ⚙️"
 path = "~/code/nix-config"
-startup_command = "nvim"
+startup_command = "nvim ."
+
+[[session]]
+name = "downloads 📂"
+path = "~/Downloads"
+startup_command = "y"
+
+[[session]]
+name = "home 🏠"
+path = "~"
+
+[[session]]
+name = "code 💻"
+path = "~/code"
+
 
 [[plugins]]
 name = "sesh"

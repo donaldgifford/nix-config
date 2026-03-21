@@ -6,7 +6,6 @@
 }:
 
 let
-  # 1Password SSH signing binary path differs between platforms
   op-ssh-sign =
     if pkgs.stdenv.isDarwin then
       "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
@@ -51,10 +50,46 @@ in
       interactive.diffFilter = "delta --color-only";
 
       delta = {
-        navigate = true;
-        side-by-side = true;
+        syntax-theme = "tokyonight_night";
+        dark = true;
+        tabs = 2;
+
+        file-style = "omit";
+        file-decoration-style = "none";
+
         line-numbers = true;
-        light = false;
+        line-numbers-left-format = "{nm:>4} ";
+        line-numbers-right-format = "│ {np:>4} ";
+        line-numbers-left-style = "white dim";
+        line-numbers-right-style = "#1f2335 dim";
+        line-numbers-plus-style = "white dim";
+        line-numbers-minus-style = "white dim";
+        line-numbers-zero-style = "white dim";
+
+        wrap-left-symbol = " ";
+        wrap-right-symbol = " ";
+        wrap-right-prefix-symbol = " ";
+
+        plus-style = "syntax \"#152339\"";
+        plus-emph-style = "syntax \"#234E88\"";
+        minus-style = "syntax \"#2D1F1B\"";
+        minus-emph-style = "syntax \"#724022\"";
+
+        hunk-label = "  󰡏 ";
+        hunk-header-line-number-style = "#10233A";
+        hunk-header-style = "#868E99";
+        hunk-header-file-style = "#868E99 dim";
+        hunk-header-decoration-style = "#163050 ol ul";
+      };
+
+      pager = {
+        log = "delta";
+        reflog = "delta";
+        # show = "delta";
+        show = "diffnav";
+        difftool = true;
+        branch = "";
+        diff = "diffnav";
       };
 
       gpg.format = "ssh";

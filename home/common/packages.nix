@@ -19,6 +19,7 @@
       jq
       yq-go
       delta
+      lazygit
       httpie
       tree
       watch

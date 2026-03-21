@@ -22,7 +22,9 @@ in
       link "bat/themes/tokyonight/Enki-Tokyo-Night.tmTheme";
     "yazi/theme.toml".source = link "yazi/theme.toml";
     "yazi/yazi.toml".source = link "yazi/yazi.toml";
+    "yazi/package.toml".source = link "yazi/package.toml";
     "starship.toml".source = link "starship/starship.toml";
+    "lazygit/config.yml".source = link "lazygit/config.yml";
     # "gh-dash/config.yml".source = link "gh-dash/config.yml";
     # "gh/config.yml".source = link "gh/config.yml";
     "diffnav/config.yml".source = link "diffnav/config.yml";

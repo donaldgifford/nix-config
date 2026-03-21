@@ -34,6 +34,7 @@ truncate_to_repo = false
 [directory.substitutions]
 "Documents" = "docs"
 "Downloads" = "dl"
+"code" = "c"
 
 [git_branch]
 symbol = ""

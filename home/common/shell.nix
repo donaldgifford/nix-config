@@ -141,6 +141,23 @@
       # ── History substring search (synchronous — needed by vi mode) ───────
       zinit light zsh-users/zsh-history-substring-search
 
+      # ── Tokyo Night ZSH colors ─────────────────────────────────────
+      # History substring search
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#283457,fg=#c0caf5,bold'
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=#db4b4b,fg=#c0caf5,bold'
+
+      # Paste — subtle underline instead of opaque background
+      zle_highlight=('paste:none')
+
+      # Autosuggestions — dim comment color
+      # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#545c7e'
+
+      # Vi mode cursor colors (if using zsh-vi-mode)
+      ZVM_CURSOR_STYLE_ENABLED=true
+      ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
+      ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+      ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
       # ── Vi mode ───────────────────────────────────────────────────────────
       function zvm_after_init() {
         bindkey '^R' fzf-history-widget
@@ -269,9 +286,29 @@
     enableZshIntegration = true;
     tmux.enableShellIntegration = true;
     defaultOptions = [
-      "--height 40%"
+      "--highlight-line"
+      #     "--height 40%"
+      "--info=inline-right"
+      "--ansi"
       "--layout=reverse"
       "--border"
+      # "--border=none"
+      "--color=bg+:#283457"
+      "--color=bg:#16161e"
+      "--color=border:#27a1b9"
+      "--color=fg:#c0caf5"
+      "--color=gutter:#16161e"
+      "--color=header:#ff9e64"
+      "--color=hl+:#2ac3de"
+      "--color=hl:#2ac3de"
+      "--color=info:#545c7e"
+      "--color=marker:#ff007c"
+      "--color=pointer:#ff007c"
+      "--color=prompt:#2ac3de"
+      "--color=query:#c0caf5:regular"
+      "--color=scrollbar:#27a1b9"
+      "--color=separator:#ff9e64"
+      "--color=spinner:#ff007c"
     ];
   };
 
