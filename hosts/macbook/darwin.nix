@@ -119,7 +119,7 @@
 
       # Fast key repeat
       KeyRepeat = 1;
-      InitialKeyRepeat = 7;
+      InitialKeyRepeat = 15;
       ApplePressAndHoldEnabled = false;
       # InitialKeyRepeat = 25;
 
