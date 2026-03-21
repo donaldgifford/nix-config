@@ -26,12 +26,25 @@
     };
 
     shellAliases = {
-      # Modern replacements
-      ls = "eza --icons";
-      ll = "eza -la --icons --git";
+      # eza
+      # eza (richer than current)
+      ls = "eza -F -gh --group-directories-first --git --git-ignore --icons --color=always --hyperlink";
+      ll = "ls -l";
+      lh = "ls -lh";
+      la = "ll -a";
       lt = "eza --tree --icons -L 3";
-      la = "eza -a --icons";
-      cat = "bat";
+      # Modern replacements
+      # ls = "eza --icons";
+      # ll = "eza -la --icons --git";
+      # la = "eza -a --icons";
+
+      # bat
+      cat = "bat --pager=never --style=plain,header";
+      fp = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
+
+      # sesh
+      sp = "sesh connect $(sesh list | fzf)";
+
       grep = "rg";
       find = "fd";
 
@@ -54,9 +67,11 @@
       gst = "git status -sb";
       glg = "git log --oneline --graph --decorate";
       gwip = "git commit -am 'wip'";
+      gcl = "git clone"; # use gcl for clone to avoid conflict
 
       # Kubernetes
       k = "kubectl";
+      kk = "kubectl";
       kgp = "kubectl get pods";
       kgs = "kubectl get services";
       kgn = "kubectl get nodes";
@@ -85,28 +100,101 @@
         git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
       fi
       source "''${ZINIT_HOME}/zinit.zsh"
+      autoload -Uz _zinit
+      (( ''${+_comps} )) && _comps[zinit]=_zinit
 
-      # ── Plugins (turbo mode — deferred loading) ───────────────────────────
-      zinit wait lucid light-mode for \
-        atinit"zicompinit; zicdreplay" \
-          zdharma-continuum/fast-syntax-highlighting \
-        atload"_zsh_autosuggest_start" \
-          zsh-users/zsh-autosuggestions \
-        blockf atpull"zinit creinstall -q ." \
-          zsh-users/zsh-completions
+      # ── Annexes ───────────────────────────────────────────────────────────
+      zinit light-mode for \
+        zdharma-continuum/zinit-annex-as-monitor \
+        zdharma-continuum/zinit-annex-bin-gem-node \
+        zdharma-continuum/zinit-annex-patch-dl \
+        zdharma-continuum/zinit-annex-rust
 
-      # ── Key bindings ──────────────────────────────────────────────────────
-      bindkey -e                          # emacs keybindings
-      bindkey '^[[A' history-search-backward
-      bindkey '^[[B' history-search-forward
-      bindkey '^R'   fzf-history-widget
+      # ── Completions infrastructure ────────────────────────────────────────
+      autoload -Uz compinit
+      if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+        compinit
+      else
+        compinit -C
+      fi
 
-      # ── Completion styling ────────────────────────────────────────────────
+      zstyle ':completion:*' menu select
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
       zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
-      zstyle ':completion:*' menu select
       zstyle ':completion:*:descriptions' format '[%d]'
       zstyle ':completion:*' group-name '''
+      zstyle ':fzf-tab:*' switch-header-keys ' '
+
+      # ── Essential plugins ─────────────────────────────────────────────────
+      zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+      zinit light zdharma-continuum/fast-syntax-highlighting
+
+      zinit ice wait lucid atload"!_zsh_autosuggest_start"
+      zinit light zsh-users/zsh-autosuggestions
+
+      zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+      zinit light zsh-users/zsh-completions
+
+      zinit ice wait lucid
+      zinit light Aloxaf/fzf-tab
+
+      # ── History substring search (synchronous — needed by vi mode) ───────
+      zinit light zsh-users/zsh-history-substring-search
+
+      # ── Vi mode ───────────────────────────────────────────────────────────
+      function zvm_after_init() {
+        bindkey '^R' fzf-history-widget
+        bindkey '^[[A' history-substring-search-up
+        bindkey '^[[B' history-substring-search-down
+      }
+
+      zinit ice depth=1
+      zinit light jeffreytse/zsh-vi-mode
+
+      # ── OMZ plugins ───────────────────────────────────────────────────────
+      zinit ice wait lucid
+      zinit snippet OMZL::git.zsh
+
+      zinit ice wait lucid atload"unalias grv 2>/dev/null"
+      zinit snippet OMZP::git
+
+      zinit ice wait lucid
+      zinit snippet OMZP::kubectl
+
+      zinit ice wait lucid
+      zinit snippet OMZP::aws
+
+      zinit ice wait lucid
+      zinit snippet OMZP::terraform
+
+      zinit ice wait lucid
+      zinit snippet OMZP::docker
+
+      zinit ice wait lucid
+      zinit snippet OMZP::helm
+
+      # ── Options ───────────────────────────────────────────────────────────
+      setopt correct
+
+      # ── 1Password CLI plugins ─────────────────────────────────────────────
+      [ -f "$HOME/.config/op/plugins.sh" ] && source "$HOME/.config/op/plugins.sh"
+
+      # ── Krew ──────────────────────────────────────────────────────────────
+      export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+      # ── Custom functions ──────────────────────────────────────────────────
+      [ -f "$HOME/.zsh/functions.zsh" ] && source "$HOME/.zsh/functions.zsh"
+
+      # add inside initContent, before the platform aliases
+      # ── Yazi wrapper (cd to dir on exit) ──────────────────────────────
+      function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+          builtin cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+      }
 
       # ── Platform-specific rebuild aliases ─────────────────────────────────
       if [[ "$(uname)" == "Darwin" ]]; then
@@ -118,75 +206,62 @@
       alias nfu="nix flake update ~/code/nix-config"
     '';
   };
+  #   initContent = ''
+  #     # ── Zinit bootstrap ───────────────────────────────────────────────────
+  #     ZINIT_HOME="''${XDG_DATA_HOME:-''${HOME}/.local/share}/zinit/zinit.git"
+  #     if [[ ! -d "$ZINIT_HOME" ]]; then
+  #       mkdir -p "$(dirname $ZINIT_HOME)"
+  #       git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  #     fi
+  #     source "''${ZINIT_HOME}/zinit.zsh"
+  #
+  #     # ── Plugins (turbo mode — deferred loading) ───────────────────────────
+  #     zinit wait lucid light-mode for \
+  #       atinit"zicompinit; zicdreplay" \
+  #         zdharma-continuum/fast-syntax-highlighting \
+  #       atload"_zsh_autosuggest_start" \
+  #         zsh-users/zsh-autosuggestions \
+  #       blockf atpull"zinit creinstall -q ." \
+  #         zsh-users/zsh-completions
+  #
+  #     # ── Key bindings ──────────────────────────────────────────────────────
+  #     bindkey -e                          # emacs keybindings
+  #     bindkey '^[[A' history-search-backward
+  #     bindkey '^[[B' history-search-forward
+  #     bindkey '^R'   fzf-history-widget
+  #
+  #     # ── Completion styling ────────────────────────────────────────────────
+  #     zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+  #     zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
+  #     zstyle ':completion:*' menu select
+  #     zstyle ':completion:*:descriptions' format '[%d]'
+  #     zstyle ':completion:*' group-name '''
+  #
+  #     # add inside initContent, before the platform aliases
+  #     # ── Yazi wrapper (cd to dir on exit) ──────────────────────────────
+  #     function y() {
+  #       local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  #       yazi "$@" --cwd-file="$tmp"
+  #       if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+  #         builtin cd -- "$cwd"
+  #       fi
+  #       rm -f -- "$tmp"
+  #     }
+  #
+  #     # ── Platform-specific rebuild aliases ─────────────────────────────────
+  #     if [[ "$(uname)" == "Darwin" ]]; then
+  #       alias nrs="sudo darwin-rebuild switch --flake ~/code/nix-config"
+  #     else
+  #       alias nrs="sudo nixos-rebuild switch --flake ~/code/nix-config#workstation"
+  #       alias nrt="sudo nixos-rebuild test --flake ~/code/nix-config#workstation"
+  #     fi
+  #     alias nfu="nix flake update ~/code/nix-config"
+  #   '';
+  # };
 
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-    settings = {
-      format = lib.concatStrings [
-        "$directory"
-        "$git_branch"
-        "$git_status"
-        "$nix_shell"
-        "$golang"
-        "$rust"
-        "$nodejs"
-        "$python"
-        "$kubernetes"
-        "$terraform"
-        "$cmd_duration"
-        "$line_break"
-        "$character"
-      ];
-
-      directory = {
-        truncation_length = 3;
-        truncation_symbol = ".../";
-        style = "bold cyan";
-      };
-
-      git_branch = {
-        format = "[$symbol$branch]($style) ";
-        symbol = " ";
-        style = "bold purple";
-      };
-
-      git_status = {
-        ahead = "⇡\${count}";
-        behind = "⇣\${count}";
-        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
-        modified = "!\${count}";
-        staged = "+\${count}";
-        untracked = "?\${count}";
-        deleted = "✘\${count}";
-        stashed = "\\$\${count}";
-      };
-
-      nix_shell = {
-        format = "[$symbol$state]($style) ";
-        symbol = " ";
-      };
-
-      golang.format = "[$symbol($version)]($style) ";
-      rust.format = "[$symbol($version)]($style) ";
-      nodejs.format = "[$symbol($version)]($style) ";
-      python.format = "[$symbol($version)]($style) ";
-
-      kubernetes = {
-        disabled = false;
-        format = "[$symbol$context(/$namespace)]($style) ";
-      };
-
-      cmd_duration = {
-        min_time = 2000;
-        format = "took [$duration]($style) ";
-      };
-
-      character = {
-        success_symbol = "[❯](bold green)";
-        error_symbol = "[❯](bold red)";
-      };
-    };
   };
 
   programs.fzf = {
@@ -203,6 +278,7 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+    options = [ "--cmd cd" ];
   };
 
   programs.direnv = {
@@ -244,12 +320,21 @@
     extraEnv = ''
       $env.EDITOR = "nvim"
       $env.VISUAL = "nvim"
-      $env.SSH_AUTH_SOCK = ($env.HOME + "/.1password/agent.sock")
       $env.PATH = ($env.PATH | split row (char esep) | prepend [
         ($env.HOME + "/.local/bin")
         ($env.HOME + "/go/bin")
       ])
-    '';
+    ''
+    + (
+      if pkgs.stdenv.isDarwin then
+        ''
+          $env.SSH_AUTH_SOCK = ($env.HOME + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock")
+        ''
+      else
+        ''
+          $env.SSH_AUTH_SOCK = ($env.HOME + "/.1password/agent.sock")
+        ''
+    );
 
     shellAliases = {
       ls = "eza --icons";
@@ -259,8 +344,16 @@
       vim = "nvim";
       k = "kubectl";
       tf = "terraform";
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#workstation";
-      hms = "home-manager switch --flake /etc/nixos#donald";
-    };
+    }
+    // (
+      if pkgs.stdenv.isDarwin then
+        {
+          nrs = "sudo darwin-rebuild switch --flake ~/code/nix-config";
+        }
+      else
+        {
+          nrs = "sudo nixos-rebuild switch --flake ~/code/nix-config#workstation";
+        }
+    );
   };
 }

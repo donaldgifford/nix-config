@@ -118,8 +118,8 @@
       AppleInterfaceStyleSwitchesAutomatically = true;
 
       # Fast key repeat
-      KeyRepeat = 1;
-      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+      InitialKeyRepeat = 20;
       ApplePressAndHoldEnabled = false;
       # InitialKeyRepeat = 25;
 

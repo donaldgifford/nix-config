@@ -16,6 +16,7 @@
     ./common/tmux.nix
     ./common/mise.nix
     ./common/packages.nix
+    ./common/claude.nix
     ./common/fonts.nix
   ];
 
@@ -33,6 +34,7 @@
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     # 1Password SSH agent — macOS path
     SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
   };
 
   home.sessionPath = [
