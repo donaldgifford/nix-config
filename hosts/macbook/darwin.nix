@@ -119,7 +119,9 @@
 
       # Fast key repeat
       KeyRepeat = 1;
-      InitialKeyRepeat = 25;
+      InitialKeyRepeat = 1;
+      ApplePressAndHoldEnabled = false;
+      # InitialKeyRepeat = 25;
 
       # Expand save/print panels by default
       NSNavPanelExpandedStateForSaveMode = true;
