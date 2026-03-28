@@ -7,7 +7,7 @@
 
 {
   imports = [
-    inputs.lazyvim-nix.homeManagerModules.default
+    # inputs.lazyvim-nix.homeManagerModules.default
     ./common/configs.nix
     ./common/shell.nix
     ./common/git.nix
@@ -34,7 +34,8 @@
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     # 1Password SSH agent — macOS path
     SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
+    # set to 0 to try remote env
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "0";
   };
 
   home.sessionPath = [

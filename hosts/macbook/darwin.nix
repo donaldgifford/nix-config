@@ -73,6 +73,7 @@
 
       # ── Browsers ──
       "firefox" # or "google-chrome", "firefox"
+      "google-chrome"
 
       # ── Communication ──
       "discord"

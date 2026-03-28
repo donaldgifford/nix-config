@@ -47,6 +47,12 @@ in
         pager = "delta";
       };
 
+      extraConfig = {
+        "url \"ssh://git@github.com/donaldgifford\"" = {
+          insteadOf = "https://github.com/donaldgifford";
+        };
+      };
+
       interactive.diffFilter = "delta --color-only";
 
       delta = {

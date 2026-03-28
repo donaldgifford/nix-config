@@ -199,6 +199,11 @@
       # ── Krew ──────────────────────────────────────────────────────────────
       export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+      # ── Zoxide (skip in Claude Code sessions) ─────────────────────────
+      if [[ -z "''${CLAUDECODE}" ]]; then
+        eval "$(zoxide init --cmd cd zsh)"
+      fi
+
       # ── Custom functions ──────────────────────────────────────────────────
       [ -f "$HOME/.zsh/functions.zsh" ] && source "$HOME/.zsh/functions.zsh"
 
@@ -314,8 +319,8 @@
 
   programs.zoxide = {
     enable = true;
-    enableZshIntegration = true;
-    options = [ "--cmd cd" ];
+    enableZshIntegration = false;
+    # options = [ "--cmd cd" ];
   };
 
   programs.direnv = {

@@ -27,6 +27,7 @@ in
     "lazygit/config.yml".source = link "lazygit/config.yml";
     # "gh-dash/config.yml".source = link "gh-dash/config.yml";
     # "gh/config.yml".source = link "gh/config.yml";
+    "nvim".source = link "nvim";
     "diffnav/config.yml".source = link "diffnav/config.yml";
   };
 }

@@ -4,29 +4,20 @@
   lib,
   ...
 }:
+let
+  claude-tmux-notify = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "claude-tmux-notify";
+    version = "v1.0.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "donaldgifford";
+      repo = "claude-tmux-notify";
+      rev = "v1.0.0";
+      sha256 = "19q5agbh20ayqyn8k9xl27rag0wi55q6y6vs317k417m9j43jvzi";
+    };
+  };
+in
 
 {
-  # ── Sesh — smart session manager ─────────────────────────────────────────
-  # programs.sesh = {
-  #   enable = true;
-  #   enableTmuxIntegration = true;
-  #
-  #   settings = {
-  #     plugins = [
-  #       {
-  #         name = "sesh";
-  #         prefix = ";s ";
-  #         src_once = "sesh list -d -c -t -T";
-  #         cmd = "sesh connect --switch %RESULT%";
-  #         keep_sort = false;
-  #         recalculate_score = true;
-  #         show_icon_when_single = true;
-  #         switcher_only = true;
-  #       }
-  #     ];
-  #   };
-  # };
-
   # ── Tmux ──────────────────────────────────────────────────────────────────
   programs.tmux = {
     enable = true;
@@ -41,6 +32,17 @@
       sensible
       pain-control
       logging
+      {
+        plugin = claude-tmux-notify;
+        extraConfig = ''
+          # Claude Tmux Notify config
+          set -g @claude-tmux-notify-cycle-key 'C-c'
+          set -g @claude-tmux-notify-picker-key 'C-y'
+          set -g @claude-tmux-notify-picker-size '60%,50%'
+          set -g @claude-tmux-notify-icon '🤖'
+          set -g @claude-tmux-notify-clear-on-focus 'on'
+        '';
+      }
       {
         plugin = fzf-tmux-url;
       }
@@ -106,6 +108,47 @@
 
       # ── True color support ──────────────────────────────────────────────
       set -as terminal-overrides ",xterm*:Tc"
+
+      # Claude notify in status bar (prepend to tokyo night status-right)
+      set -g status-right '#{E:@tokyo-night-tmux_prepend_status_right}#(~/.local/share/tmux/claude-tmux-notify/scripts/status.sh)'
     '';
   };
+
+  # Stable symlink so Claude hook and status bar paths don't break on rebuild
+  # home.activation.claudeTmuxNotifyLink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #   PLUGIN_PATH=$(find /nix/store -maxdepth 1 -name '*claude-tmux-notify*' -type d 2>/dev/null | head -1)
+  #   if [ -n "$PLUGIN_PATH" ]; then
+  #     mkdir -p "$HOME/.local/share/tmux"
+  #     ln -sf "$PLUGIN_PATH/share/tmux-plugins/claude-tmux-notify" "$HOME/.local/share/tmux/claude-tmux-notify"
+  #   fi
+  # '';
+
+  home.activation.claudeTmuxNotifyLink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    PLUGIN_PATH=$(find /nix/store -maxdepth 1 -name '*claude-tmux-notify*' -type d 2>/dev/null | head -1)
+    if [ -n "$PLUGIN_PATH" ]; then
+      mkdir -p "$HOME/.local/share/tmux"
+      rm -rf "$HOME/.local/share/tmux/claude-tmux-notify"
+      ln -sf "$PLUGIN_PATH/share/tmux-plugins/claude-tmux-notify" "$HOME/.local/share/tmux/claude-tmux-notify"
+    fi
+  '';
 }
+# ── Sesh — smart session manager ─────────────────────────────────────────
+# programs.sesh = {
+#   enable = true;
+#   enableTmuxIntegration = true;
+#
+#   settings = {
+#     plugins = [
+#       {
+#         name = "sesh";
+#         prefix = ";s ";
+#         src_once = "sesh list -d -c -t -T";
+#         cmd = "sesh connect --switch %RESULT%";
+#         keep_sort = false;
+#         recalculate_score = true;
+#         show_icon_when_single = true;
+#         switcher_only = true;
+#       }
+#     ];
+#   };
+# };

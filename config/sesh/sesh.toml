@@ -1,9 +1,4 @@
 [[session]]
-name = "nix-config ⚙️"
-path = "~/code/nix-config"
-startup_command = "nvim ."
-
-[[session]]
 name = "downloads 📂"
 path = "~/Downloads"
 startup_command = "y"
@@ -15,6 +10,27 @@ path = "~"
 [[session]]
 name = "code 💻"
 path = "~/code"
+
+# Repos
+[[session]]
+name = "nix-config ⚙️"
+path = "~/code/nix-config"
+startup_command = "nvim ."
+
+[[session]]
+name = "homelab 🏠"
+path = "~/code/homelab"
+startup_command = "nvim ."
+
+[[session]]
+name = "wiz-go-gen"
+path = "~/code/wiz-go-gen"
+startup_command = "nvim ."
+
+[[session]]
+name = "priv"
+path = "~/code/priv"
+startup_command = "nvim ."
 
 
 [[plugins]]
