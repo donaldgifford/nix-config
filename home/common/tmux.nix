@@ -7,6 +7,7 @@
 let
   claude-tmux-notify = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "claude-tmux-notify";
+    rtpFilePath = "claude-notify.tmux";
     version = "v1.0.0";
     src = pkgs.fetchFromGitHub {
       owner = "donaldgifford";
