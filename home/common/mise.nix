@@ -29,6 +29,7 @@
         ruff = "latest";
         python = "3.13";
         marksman = "latest";
+        checkmake = "latest";
         terragrunt = "latest";
         terraform = "latest";
         terraform-docs = "latest";
@@ -54,7 +55,8 @@
         helm-diff = "3.15.0";
         helm-docs = "1.14.2";
         typst = "latest";
-
+        cilium-cli = "latest";
+        cilium-hubble = "latest";
       };
 
       settings = {
