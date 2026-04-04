@@ -1,22 +1,98 @@
 # Nix Dotfiles
 
+Multi-platform Nix configuration managing NixOS (workstation) and macOS (MacBook) from a single flake.
 NixOS configuration for a 20XX + Wayland + Sway setup. Managed declaratively via NixOS flakes and Home Manager.
 
+## Quick
+
+Mac:
+
+```bash
+sudo darwin-rebuild switch --flake ~/code/nix-config
+```
+
+NixOS:
+
+```bash
+sudo nixos-rebuild switch --flake ~/code/nix-config#workstation
+```
+
+## Structure
+
+```
+dotfiles/
+├── flake.nix                    # Top-level flake — both platforms
+├── hosts/
+│   ├── macbook/
+│   │   └── darwin.nix           # macOS system config, homebrew, defaults
+│   └── workstation/
+│       ├── configuration.nix    # NixOS system config
+│       └── hardware-configuration.nix
+├── home/
+│   ├── darwin.nix               # macOS HM entry — imports common/
+│   ├── linux.nix                # Linux HM entry — imports common/ + linux/
+│   ├── common/                  # Shared across both platforms
+│   │   ├── shell.nix            # zsh, zinit, starship, fzf, direnv
+│   │   ├── git.nix              # git, delta, gh — 1Password signing
+│   │   ├── ssh.nix              # ssh — 1Password agent
+│   │   ├── neovim.nix           # neovim + LazyVim symlink
+│   │   ├── tmux.nix             # tmux + plugins + sesh
+│   │   ├── mise.nix             # mise global tools
+│   │   └── packages.nix         # CLI tools, dev packages
+│   └── linux/                   # Linux-only modules
+│       ├── sway.nix
+│       ├── waybar.nix
+│       ├── wofi.nix
+│       └── swaylock.nix
+└── config/
+    └── nvim/                    # LazyVim config (symlinked via mkOutOfStoreSymlink)
+```
+
+## Usage
+
+### macOS (MacBook)
+
+```bash
+sudo darwin-rebuild switch --flake ~/dotfiles
+```
+
+### NixOS (Workstation)
+
+```bash
+sudo nixos-rebuild switch --flake ~/dotfiles#workstation
+```
+
+### Update flake inputs
+
+```bash
+nix flake update ~/dotfiles
+```
+
+## Bootstrap (fresh Mac)
+
+1. Install Nix: `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
+2. Install Homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+3. Clone this repo: `git clone <repo> ~/dotfiles`
+4. First build: `cd ~/dotfiles && nix run nix-darwin -- switch --flake .`
+5. Open 1Password → sign in → enable SSH agent
+
 ---
 
-## System
+## Systems
 
-| | |
-|---|---|
-| **OS** | NixOS 25.11 |
-| **GPU** | NVIDIA RTX 2080 Ti (Turing) |
-| **Compositor** | Sway (Wayland) |
-| **Shell** | Zsh |
-| **Filesystem** | btrfs (subvolumes) |
+### Workstation
+
+|                |                             |
+| -------------- | --------------------------- |
+| **OS**         | NixOS 25.11                 |
+| **GPU**        | NVIDIA RTX 2080 Ti (Turing) |
+| **Compositor** | Sway (Wayland)              |
+| **Shell**      | Zsh                         |
+| **Filesystem** | btrfs (subvolumes)          |
 
 ---
 
-## Fresh Install
+### Fresh Install
 
 Boot the [NixOS minimal ISO](https://nixos.org/download), connect to the internet, then run the bootstrap script. It will partition your disk, create btrfs subvolumes, pull the config, and install NixOS in one shot.
 
@@ -32,7 +108,7 @@ The script will prompt you for:
 
 It will ask you to confirm before touching anything. After install completes, reboot and remove the USB.
 
-### First Boot
+#### First Boot
 
 Log in as root via the greetd terminal prompt and set your user password:
 
@@ -44,7 +120,7 @@ Then log out of root and log in as your user. Sway will launch automatically.
 
 ---
 
-## Updating
+### Updating
 
 After making changes to any `.nix` file:
 
@@ -62,7 +138,7 @@ sudo nixos-rebuild switch --flake /etc/nixos#YOURHOSTNAME
 
 ---
 
-## Home Manager
+### Home Manager
 
 Home Manager is included as a NixOS module and is applied automatically as part of `nixos-rebuild switch`. To apply Home Manager changes without a full system rebuild:
 
@@ -72,7 +148,7 @@ home-manager switch --flake /etc/nixos#YOURUSERNAME
 
 ---
 
-## Structure
+### Structure
 
 ```
 .
@@ -92,7 +168,7 @@ home-manager switch --flake /etc/nixos#YOURUSERNAME
 
 ---
 
-## Nvidia Notes
+### Nvidia Notes
 
 This config uses the open-source Nvidia kernel module (`hardware.nvidia.open = true`), supported on Turing (RTX 20xx) and newer since driver 560+. KMS is enabled via `nvidia-drm.modeset=1` which is required for Sway to start. If you're cloning this for an older GPU (GTX 10xx or earlier), set `open = false` in `nixos/configuration.nix`.
 
@@ -105,7 +181,7 @@ journalctl -u greetd -b
 
 ---
 
-## Rollback
+### Rollback
 
 Every `nixos-rebuild switch` creates a new generation. To roll back to the previous one:
 
@@ -124,7 +200,7 @@ sudo nixos-rebuild boot  # update bootloader entries after GC
 
 ---
 
-## macOS / Home Manager Standalone
+### macOS / Home Manager Standalone
 
 If you're using Home Manager standalone on macOS (without NixOS), install Nix first via the Determinate Systems installer:
 

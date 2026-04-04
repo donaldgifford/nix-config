@@ -1,0 +1,121 @@
+# ~/.config/starship.toml
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$bun\
+$rust\
+$golang\
+$php\
+$fill\
+$line_break\
+$shell\
+$character"""
+
+right_format = """
+$mise\
+$kubernetes\
+$aws\
+$time\
+"""
+
+[fill]
+symbol = " "
+
+[directory]
+style = "cyan"
+format = "[$path]($style)"
+truncation_length = 0
+truncate_to_repo = false
+
+[directory.substitutions]
+"Documents" = "docs"
+"Downloads" = "dl"
+"code" = "c"
+
+[git_branch]
+symbol = ""
+format = ' [\($branch\)]( red)'
+
+[git_status]
+format = '( $modified$deleted)'
+modified = '[+$count](green)'
+deleted = '[ -$count](dimmed red)'
+staged = ''
+untracked = ''
+conflicted = ''
+ahead = ''
+behind = ''
+renamed = ''
+stashed = ''
+typechanged = ''
+
+[nodejs]
+symbol = "node"
+format = '[$symbol $version](dimmed)'
+
+[bun]
+symbol = "bun"
+format = '[$symbol $version](dimmed)'
+detect_folders = ["frontend", "ui"]
+
+[rust]
+symbol = "rust"
+format = ' [$symbol $version](dimmed)'
+
+[golang]
+symbol = "go"
+format = ' [$symbol $version](dimmed)'
+
+[php]
+symbol = "php"
+format = ' [$symbol $version](dimmed)'
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "yellow"
+format = ' [$time]($style)'
+
+[character]
+success_symbol = "[❯](purple bold)"
+error_symbol = "[❯](red)"
+
+[aws]
+format = '[$symbol$profile]($style) '
+style = "bold blue"
+symbol = "aws:"
+[aws.profile_aliases]
+Enterprise_Naming_Scheme-voidstars = "void**"
+
+[kubernetes]
+format = '[$symbol$context( \($namespace\))]( dimmed)'
+disabled = false
+
+[[kubernetes.contexts]]
+context_pattern = "k3s"
+style = "bold red"
+symbol = "k3s:"
+context_alias = "k3s"
+
+[[kubernetes.contexts]]
+context_pattern = "k3d_.*_(?P<cluster>[\\w-]+)"
+context_alias = "k3d-$cluster"
+style = "green"
+
+[mise]
+disabled = false
+healthy_symbol = "ready"
+
+[container]
+disabled = true
+
+[shell]
+disabled = false
+zsh_indicator = ""
+nu_indicator = "nu "
+format = "[$indicator]($style)"
+style = "green bold"

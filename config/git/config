@@ -1,0 +1,30 @@
+[alias]
+	co = checkout
+	br = checkout -b
+	cm = commit -m
+	st = status
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+[user]
+	name = Donald Gifford
+	email = dgifford@pm.me
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOeDUZ8unhW85b8Cu1zmEDp5CNeg0oYpvRpK1eMYQvd
+
+[commit]
+	gpgsign = true
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[includeIf "gitdir:~/code/cgforge/"]
+  [user]
+    email = donald@cgforge.io
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPTdbCjMkxqFctx8zY3bNTnbLf7elRNM1evk/ctzzj3t

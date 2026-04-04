@@ -1,0 +1,31 @@
+theme = Tokyonight Night
+
+# Font
+font-family = "BerkeleyMono Nerd Font"
+font-style = "SemiCondensed"
+font-size = 16
+
+# Copy
+copy-on-select = true
+confirm-close-surface = false
+macos-option-as-alt = true
+clipboard-read = "allow"
+clipboard-paste-protection = false
+
+# Shell
+mouse-hide-while-typing = true
+shell-integration = zsh
+cursor-style = block
+cursor-style-blink = false
+
+window-decoration = false
+window-padding-x = 8
+window-padding-y = 4
+# background-blur-radius = 20
+
+shell-integration = zsh
+
+# keybinds
+keybind = shift+enter=text:\x1b\r
+keybind = super+t=new_tab
+keybind = super+w=close_surface

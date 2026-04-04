@@ -1,0 +1,44 @@
+[[session]]
+name = "downloads 📂"
+path = "~/Downloads"
+startup_command = "y"
+
+[[session]]
+name = "home 🏠"
+path = "~"
+
+[[session]]
+name = "code 💻"
+path = "~/code"
+
+# Repos
+[[session]]
+name = "nix-config ⚙️"
+path = "~/code/nix-config"
+startup_command = "nvim ."
+
+[[session]]
+name = "homelab 🏠"
+path = "~/code/homelab"
+startup_command = "nvim ."
+
+[[session]]
+name = "wiz-go-gen"
+path = "~/code/wiz-go-gen"
+startup_command = "nvim ."
+
+[[session]]
+name = "priv"
+path = "~/code/priv"
+startup_command = "nvim ."
+
+
+[[plugins]]
+name = "sesh"
+prefix = ";s "
+src_once = "sesh list -d -c -t -T"
+cmd = "sesh connect --switch %RESULT%"
+keep_sort = false
+recalculate_score = true
+show_icon_when_single = true
+switcher_only = true
