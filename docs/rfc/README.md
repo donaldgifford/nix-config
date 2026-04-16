@@ -29,4 +29,9 @@ docz create rfc "Your RFC Title"
 - **Superseded**: Replaced by another RFC
 
 <!-- BEGIN DOCZ AUTO-GENERATED -->
+## All RFCs
+
+| ID | Title | Status | Date | Author | Link |
+|----|-------|--------|------|--------|------|
+| RFC-0001 | Multi-Platform Nix Configuration Management | Draft | 2026-04-11 | Donald Gifford | [0001-multi-platform-nix-configuration-management.md](0001-multi-platform-nix-configuration-management.md) |
 <!-- END DOCZ AUTO-GENERATED -->

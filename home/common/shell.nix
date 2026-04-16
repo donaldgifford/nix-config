@@ -221,9 +221,11 @@
       # ── Platform-specific rebuild aliases ─────────────────────────────────
       if [[ "$(uname)" == "Darwin" ]]; then
         alias nrs="sudo darwin-rebuild switch --flake ~/code/nix-config"
+        alias nrd="darwin-rebuild build --flake ~/code/nix-config && nvd diff /run/current-system result"
       else
         alias nrs="sudo nixos-rebuild switch --flake ~/code/nix-config#workstation"
         alias nrt="sudo nixos-rebuild test --flake ~/code/nix-config#workstation"
+        alias nrd="nixos-rebuild build --flake ~/code/nix-config#workstation && nvd diff /run/current-system result"
       fi
       alias nfu="nix flake update ~/code/nix-config"
     '';

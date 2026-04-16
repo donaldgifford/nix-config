@@ -44,6 +44,7 @@
       statix
       deadnix
       nix-direnv
+      nvd
 
       # ── Git / GitHub ────────────────────────────────────────────────────────
       gh
