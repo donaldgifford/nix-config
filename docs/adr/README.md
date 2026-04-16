@@ -27,4 +27,10 @@ docz create adr "Your ADR Title"
 - **Superseded by ADR-XXXX**: Replaced by another ADR
 
 <!-- BEGIN DOCZ AUTO-GENERATED -->
+## All ADRs
+
+| ID | Title | Status | Date | Author | Link |
+|----|-------|--------|------|--------|------|
+| ADR-0001 | Use nix-darwin with Homebrew for macOS Configuration | Proposed | 2026-04-11 | Donald Gifford | [0001-use-nix-darwin-with-homebrew-for-macos-configuration.md](0001-use-nix-darwin-with-homebrew-for-macos-configuration.md) |
+| ADR-0002 | Use NixOS with Sway and Nvidia for Workstation | Proposed | 2026-04-11 | Donald Gifford | [0002-use-nixos-with-sway-and-nvidia-for-workstation.md](0002-use-nixos-with-sway-and-nvidia-for-workstation.md) |
 <!-- END DOCZ AUTO-GENERATED -->
