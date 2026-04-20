@@ -59,6 +59,7 @@
     brews = [
       "mas" # Mac App Store CLI (needed for masApps below)
       "dlvhdr/formulae/diffnav" # diffnav
+      "anomalyco/tap/opencode" # opencode
     ];
 
     # GUI applications

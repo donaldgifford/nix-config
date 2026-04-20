@@ -32,4 +32,5 @@ docz create impl "Your Implementation Title"
 
 | ID | Title | Status | Date | Author | Link |
 |----|-------|--------|------|--------|------|
+| IMPL-0001 | Claude Code Nix Config Skills Plugin | Draft | 2026-04-16 | Donald Gifford | [0001-claude-code-nix-config-skills-plugin.md](0001-claude-code-nix-config-skills-plugin.md) |
 <!-- END DOCZ AUTO-GENERATED -->
