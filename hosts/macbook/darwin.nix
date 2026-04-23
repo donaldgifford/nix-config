@@ -106,6 +106,15 @@
       "Monodraw" = 920404675;
       "Transmit 5" = 1436522307;
       "Pastebot" = 1179623856;
+
+      # TODO: installed by default on macOS but we don't use them.
+      # Commented out — leaving them declared here so we know they exist.
+      # "GarageBand" = 682658836;
+      # "iMovie" = 408981434;
+      # "Keynote" = 409183694;
+      # "Numbers" = 409203825;
+      # "Pages" = 409201541;
+
       # "Xcode"     = 497799835;
       # "Tailscale" = 1475387142;
       # "Wireguard" = 1451685025;

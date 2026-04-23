@@ -193,9 +193,6 @@
       # ── Options ───────────────────────────────────────────────────────────
       setopt correct
 
-      # ── 1Password CLI plugins ─────────────────────────────────────────────
-      [ -f "$HOME/.config/op/plugins.sh" ] && source "$HOME/.config/op/plugins.sh"
-
       # ── Krew ──────────────────────────────────────────────────────────────
       export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
