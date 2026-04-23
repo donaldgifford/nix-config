@@ -12,7 +12,7 @@
     plugins = with pkgs; [
       gh
       awscli2
-      gitea
+      tea # Gitea CLI
       argocd
       wrangler # Cloudflare Workers CLI
       cargo
