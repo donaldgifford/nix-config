@@ -164,6 +164,12 @@ in
         user = "donald";
         extraOptions.IdentityFile = "~/.ssh/donald.pub";
       };
+
+      # ── GitHub ──────────────────────────────────────────────────────────────
+      "github.com" = {
+        user = "git";
+        extraOptions.IdentityFile = "~/.ssh/github.pub";
+      };
     };
   };
 }
