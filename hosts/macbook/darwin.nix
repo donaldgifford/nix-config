@@ -126,7 +126,8 @@
     # Global
     NSGlobalDomain = {
       AppleShowAllExtensions = true;
-      AppleInterfaceStyleSwitchesAutomatically = true;
+      AppleInterfaceStyle = "Dark";
+      AppleInterfaceStyleSwitchesAutomatically = false;
 
       # Fast key repeat
       KeyRepeat = 2;

@@ -10,7 +10,9 @@
   programs._1password-shell-plugins = {
     enable = true;
     plugins = with pkgs; [
-      gh
+      # NOTE: gh intentionally not wrapped — breaks non-interactive use
+      # (e.g. Claude Code). Use `gh auth login` once; it stores the token
+      # in macOS Keychain / Linux secret service.
       awscli2
       tea # Gitea CLI
       argocd
