@@ -61,6 +61,7 @@
         kind = "latest";
         kubebuilder = "latest";
         argocd = "latest";
+        talosctl = "1.12.1"; # pin to cluster version
         helm = "3.19.0";
         helm-cr = "1.8.1";
         helm-ct = "3.14.0";

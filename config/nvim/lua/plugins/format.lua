@@ -25,6 +25,7 @@ return {
 				["terraform-vars"] = { "terraform_fmt" },
 				toml = { "taplo" },
 				rust = { "rustfmt" },
+				typst = { "typstyle", lsp_format = "prefer" },
 			},
 			formatters = {
 				yamlfmt = {
