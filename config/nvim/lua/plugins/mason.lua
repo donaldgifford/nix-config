@@ -42,6 +42,9 @@ return {
 				-- rust
 				"bacon",
 				"bacon-ls",
+				-- nix
+				"nil",
+				"nixfmt",
 			},
 		},
 	},

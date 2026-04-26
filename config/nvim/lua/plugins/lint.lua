@@ -4,7 +4,7 @@ return {
 	dependencies = {
 		{
 			"mason-org/mason.nvim",
-			opts = { ensure_installed = { "golangci-lint", "actionlint", "yamllint", "checkmake", "statix" } },
+			opts = { ensure_installed = { "golangci-lint", "actionlint", "yamllint", "checkmake" } },
 		},
 	},
 	opts = {
@@ -17,7 +17,6 @@ return {
 			markdown = { "markdownlint-cli2" },
 			yaml = { "yamllint", "actionlint" },
 			rust = { "clippy" },
-			nix = { "statix" },
 		},
 		linters = {
 			actionlint = {
