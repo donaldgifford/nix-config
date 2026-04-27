@@ -18,6 +18,7 @@
     ./common/mise.nix
     ./common/packages.nix
     ./common/fonts.nix
+    ./common/onepassword-plugins.nix
 
     # ── Linux-only modules ──────────────────────────────────────────────────
     # Uncomment these as you port them from /etc/nixos/home/

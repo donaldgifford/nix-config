@@ -157,6 +157,9 @@
       ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
       ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
       ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+      # Prevent zvm from spawning a subshell that wipes earlier functions
+      # (1Password shell plugin wrappers are defined before zvm loads)
+      ZVM_INIT_MODE=sourcing
 
       # ── Vi mode ───────────────────────────────────────────────────────────
       function zvm_after_init() {
@@ -192,9 +195,6 @@
 
       # ── Options ───────────────────────────────────────────────────────────
       setopt correct
-
-      # ── 1Password CLI plugins ─────────────────────────────────────────────
-      [ -f "$HOME/.config/op/plugins.sh" ] && source "$HOME/.config/op/plugins.sh"
 
       # ── Krew ──────────────────────────────────────────────────────────────
       export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

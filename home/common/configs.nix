@@ -29,5 +29,6 @@ in
     # "gh/config.yml".source = link "gh/config.yml";
     "nvim".source = link "nvim";
     "diffnav/config.yml".source = link "diffnav/config.yml";
+    "1Password/ssh/agent.toml".source = link "1Password/ssh/agent.toml";
   };
 }
