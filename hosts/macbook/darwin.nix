@@ -106,6 +106,9 @@
       "Monodraw" = 920404675;
       "Transmit 5" = 1436522307;
       "Pastebot" = 1179623856;
+      "Microsoft Word" = 462054704;
+      "Microsoft Excel" = 462058435;
+      "Microsoft PowerPoint" = 462062816;
 
       # TODO: installed by default on macOS but we don't use them.
       # Commented out — leaving them declared here so we know they exist.

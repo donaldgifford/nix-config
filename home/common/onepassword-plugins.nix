@@ -15,7 +15,6 @@
       # in macOS Keychain / Linux secret service.
       awscli2
       tea # Gitea CLI
-      argocd
       wrangler # Cloudflare Workers CLI
       cargo
       # TODO: come back and enable + configure these

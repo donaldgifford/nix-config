@@ -13,6 +13,7 @@ Design docs, plans, and implementation docs can reference investigations by ID
 
 | ID | Title | Status | Date | Author | Link |
 |----|-------|--------|------|--------|------|
+| INV-0001 | Split Dotfiles into Separate Repo | Open | 2026-04-27 | Donald Gifford | [0001-split-dotfiles-into-separate-repo.md](0001-split-dotfiles-into-separate-repo.md) |
 <!-- END DOCZ AUTO-GENERATED -->
 <!-- BEGIN DOCZ AUTO-GENERATED -->
 <!-- END DOCZ AUTO-GENERATED -->
