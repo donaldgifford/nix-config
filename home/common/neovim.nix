@@ -6,12 +6,10 @@
 }:
 
 {
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
+  # programs.neovim is intentionally NOT enabled — it tries to manage
+  # ~/.config/nvim/init.lua, conflicting with our mkOutOfStoreSymlink of the
+  # whole nvim/ directory in home/common/configs.nix.
+  # neovim binary is provided via home/common/packages.nix.
 }
 
 # {
