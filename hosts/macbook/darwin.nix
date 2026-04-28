@@ -60,6 +60,7 @@
       "mas" # Mac App Store CLI (needed for masApps below)
       "dlvhdr/formulae/diffnav" # diffnav
       "anomalyco/tap/opencode" # opencode
+      "rsync" # newer than macOS-shipped rsync 2.6.9
     ];
 
     # GUI applications
