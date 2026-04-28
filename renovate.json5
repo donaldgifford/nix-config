@@ -1,8 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>donaldgifford/renovate-config/more-presets",
-    "github>donaldgifford/renovate-config:nix/more-presets",
-    "github>donaldgifford/renovate-config:ci/more-presets"
+    "github>donaldgifford/renovate-config",
+    "github>donaldgifford/renovate-config:nix",
+    "github>donaldgifford/renovate-config:ci"
   ]
 }
