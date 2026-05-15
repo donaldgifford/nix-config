@@ -44,7 +44,7 @@ in
 
       core = {
         editor = "nvim";
-        pager = "delta";
+        # pager = "delta";  # hunk owns core.pager via enableGitIntegration
       };
 
       extraConfig = {
@@ -53,7 +53,7 @@ in
         };
       };
 
-      interactive.diffFilter = "delta --color-only";
+      # interactive.diffFilter = "delta --color-only";  # disabled while testing hunk
 
       delta = {
         syntax-theme = "tokyonight_night";
@@ -89,8 +89,8 @@ in
       };
 
       pager = {
-        log = "delta";
-        reflog = "delta";
+        # log = "delta";     # disabled while testing hunk
+        # reflog = "delta";  # disabled while testing hunk
         # show = "delta";
         show = "diffnav";
         difftool = true;

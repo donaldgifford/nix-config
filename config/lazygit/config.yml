@@ -1,4 +1,8 @@
 ---
+git:
+  paging:
+    colorArg: always
+    pager: hunk pager
 gui:
   nerdFontsVersion: "3"
   theme:
