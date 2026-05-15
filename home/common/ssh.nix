@@ -170,6 +170,12 @@ in
         user = "git";
         extraOptions.IdentityFile = "~/.ssh/github.pub";
       };
+
+      # ── Forgejo (fartlab) ───────────────────────────────────────────────────
+      "git.fartlab.dev" = {
+        user = "git";
+        extraOptions.IdentityFile = "~/.ssh/donald.pub";
+      };
     };
   };
 }
