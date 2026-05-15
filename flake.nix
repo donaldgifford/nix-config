@@ -16,6 +16,11 @@
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
+    hunk = {
+      url = "github:modem-dev/hunk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # lazyvim-nix = {
     #   url = "github:pfassina/lazyvim-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";

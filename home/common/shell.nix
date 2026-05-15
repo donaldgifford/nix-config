@@ -228,6 +228,27 @@
         alias nrd="nixos-rebuild build --flake ~/code/nix-config#workstation && nvd diff /run/current-system result"
       fi
       alias nfu="nix flake update ~/code/nix-config"
+
+      # ── hm-diff: diff a live ~/.config/<path> against what HM would generate
+      # usage: hm-diff mise/config.toml
+      hm-diff() {
+        if [[ -z "$1" ]]; then
+          echo "usage: hm-diff <path-under-~/.config>  e.g. hm-diff mise/config.toml"
+          return 1
+        fi
+        local rel="$1"
+        local attr
+        if [[ "$(uname)" == "Darwin" ]]; then
+          attr="darwinConfigurations.donald-mbp.config.home-manager.users.donaldgifford.xdg.configFile.\"$rel\".source"
+        else
+          attr="nixosConfigurations.workstation.config.home-manager.users.donald.xdg.configFile.\"$rel\".source"
+        fi
+        local generated
+        generated=$(nix eval --raw "$HOME/code/nix-config#$attr" 2>/dev/null) \
+          || { echo "hm-diff: couldn't resolve $rel — does HM manage it?"; return 1; }
+        delta "$HOME/.config/$rel" "$generated"
+      }
+      alias nrd-mise="hm-diff mise/config.toml"
     '';
   };
   #   initContent = ''
