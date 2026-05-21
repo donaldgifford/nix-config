@@ -1,0 +1,38 @@
+# lstk configuration file
+# Run 'lstk config path' to see where this file lives.
+
+# Each [[containers]] block defines an emulator instance.
+# Currently, running AWS and Snowflake at the same time is not fully supported —
+# enable only one [[containers]] block at a time.
+
+[[containers]]
+type = "aws"   # Emulator type. Currently supported: "aws", "snowflake"
+tag = "latest" # Docker image tag, e.g. "latest", "2026.03"
+port = "4566"  # Host port the emulator will be accessible on
+# volume = ""    # Host directory for persistent state (default: OS cache dir)
+# env = []       # Named environment profiles to apply (see [env.*] sections below)
+
+# Environment profiles let you group environment variables and reference
+# them by name in one or more containers via the 'env' field above.
+#
+# Example variables based on commonly used current config options:
+#
+#   DEBUG=1                 - Enable verbose logging
+#   PERSISTENCE=1           - Persist LocalStack state across restarts
+#   ENFORCE_IAM=1           - Enable IAM policy enforcement
+#   SERVICES=s3,sqs         - Limit services to load
+#   EAGER_SERVICE_LOADING=1 - Preload services at startup
+#
+# See full list of configuration options:
+# > https://docs.localstack.cloud/references/configuration/
+#
+# Example profiles:
+#
+# [env.debug]
+# DEBUG = "1"
+# PERSISTENCE = "1"
+# ENFORCE_IAM = "1"
+#
+# [env.ci]
+# SERVICES = "s3,sqs"
+# EAGER_SERVICE_LOADING = "1"

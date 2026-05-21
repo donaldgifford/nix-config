@@ -3,3 +3,7 @@ result-*
 .direnv/
 backup/
 home/common/fonts/**/*.ttf
+
+# localstack
+config/lstk/machine_id
+config/lstk/plan_label

@@ -93,6 +93,7 @@
         boilerplate = "latest";
         syft = "latest";
         "github:golang-migrate/migrate" = "latest";
+        "github:locastack/lstk" = "latest";
         cosign = "latest";
       };
 
