@@ -83,6 +83,7 @@
         "github:donaldgifford/forge" = "latest";
         "github:donaldgifford/docz" = "latest";
         "github:donaldgifford/makefmt" = "latest";
+        "github:donaldgifford/mdp" = "latest";
 
         # ── Misc ────────────────────────────────────────────────────────────
         marksman = "latest";
