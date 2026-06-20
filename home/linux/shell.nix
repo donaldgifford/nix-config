@@ -322,8 +322,9 @@
       vim = "nvim";
       k = "kubectl";
       tf = "terraform";
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#workstation";
-      hms = "home-manager switch --flake /etc/nixos#donald";
+      nrs = "sudo nixos-rebuild switch --flake ~/code/nix-config#workstation";
+      # TODO: not sure if this is still needed?
+      # hms = "home-manager switch --flake /etc/nixos#donald";
     };
   };
 }
