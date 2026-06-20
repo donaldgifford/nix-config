@@ -64,6 +64,9 @@
         installDependencies = true;
         installRuntimeDependencies = false;
       };
+      dap.core = {
+        enable = true;
+      };
       ui.treesitter-context = {
         enable = true;
       };

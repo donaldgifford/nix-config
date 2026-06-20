@@ -40,6 +40,7 @@
     VISUAL = "nvim";
     PAGER = "bat --plain";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    MANROFFOPT = "-c";
     SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
     XDG_RUNTIME_DIR = "/run/user/1000";
     XCURSOR_SIZE = "24";

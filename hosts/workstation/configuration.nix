@@ -7,6 +7,10 @@
 
 {
   imports = [ ./hardware-configuration.nix ];
+
+  documentation.man.enable = true;
+  documentation.dev.enable = true;
+
   # ── Bootloader ──────────────────────────────────────────────────────────────
   # systemd-boot is simpler than GRUB for UEFI systems and integrates well
   # with NixOS generations. Each generation appears as a separate boot entry.
@@ -237,6 +241,8 @@
     gnumake
     pkg-config
     rustup
+    man-pages
+    man-pages-posix
   ];
 
   # ── Nix LD ────────────────────────────────────────────────────────────────────

@@ -82,7 +82,7 @@
         "github:donaldgifford/forge" = "0.7.0";
         "github:donaldgifford/docz" = "0.3.0";
         "github:donaldgifford/makefmt" = "0.0.3";
-        "github:donaldgifford/mdp" = "0.2.0";
+        "github:donaldgifford/mdp" = "0.2.1";
 
         # ── Misc ────────────────────────────────────────────────────────────
         marksman = "2026-02-08";
