@@ -1,4 +1,4 @@
-theme = Tokyonight Night
+theme = "TokyoNight Night"
 
 # Font
 font-family = "BerkeleyMono Nerd Font"
