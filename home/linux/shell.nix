@@ -72,10 +72,9 @@
       tfa = "terraform apply";
 
       # NixOS
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#workstation";
-      nrt = "sudo nixos-rebuild test --flake /etc/nixos#workstation";
-      hms = "home-manager switch --flake /etc/nixos#donald";
-      nfu = "sudo nix flake update /etc/nixos";
+      nrs = "sudo nixos-rebuild switch --flake ~/code/nix-config#workstation";
+      nrt = "sudo nixos-rebuild test --flake ~/code/nix-config#workstation";
+      nfu = "nix flake update ~/code/nix-config";
 
       # Misc
       vi = "nvim";
@@ -322,8 +321,9 @@
       vim = "nvim";
       k = "kubectl";
       tf = "terraform";
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#workstation";
-      hms = "home-manager switch --flake /etc/nixos#donald";
+      nrs = "sudo nixos-rebuild switch --flake ~/code/nix-config#workstation";
+      # TODO: not sure if this is still needed?
+      # hms = "home-manager switch --flake /etc/nixos#donald";
     };
   };
 }

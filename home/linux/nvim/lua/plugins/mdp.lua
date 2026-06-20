@@ -12,7 +12,7 @@ return {
     opts = {
       port = 0, -- 0 = auto-assign
       browser = true, -- Open browser on start
-      theme = "dark", -- "auto", "light", or "dark"
+      theme = "tokyo-night", -- see `mdp themes` for options
       scroll_sync = true, -- Sync preview scroll with cursor
       idle_timeout_secs = 30, -- Shut down after N seconds with no open tab (0 = disabled)
       log_file = vim.fn.stdpath("log") .. "/mdp.log", -- "" to disable
