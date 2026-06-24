@@ -12,7 +12,7 @@ uv = "0.10.11"
 # python = "3.13" — partial version, mise resolves to latest 3.13.x; skip renovate
 python = "3.13"
 # renovate: datasource=github-releases depName=oven-sh/bun extractVersion=^bun-v(?<version>.+)$
-bun = "1.13.1"
+bun = "1.3.14"
 
 # ── Linting / formatting ──────────────────────────────────────────────────────
 # renovate: datasource=github-releases depName=DavidAnson/markdownlint-cli2
@@ -74,7 +74,7 @@ terraform-docs = "0.24.0"
 # renovate: datasource=github-releases depName=terraform-linters/tflint
 tflint = "0.62.0"
 # packer — version "0.15.0" doesn't match HashiCorp Packer (>1.x); skipping until confirmed
-packer = "0.15.0"
+packer = "1.15.4"
 # renovate: datasource=github-releases depName=opentofu/opentofu
 opentofu = "1.11.5"
 # renovate: datasource=go depName=github.com/transcend-io/terragrunt-atlantis-config
