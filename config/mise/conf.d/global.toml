@@ -12,7 +12,7 @@ uv = "0.10.11"
 # python = "3.13" — partial version, mise resolves to latest 3.13.x; skip renovate
 python = "3.13"
 # renovate: datasource=github-releases depName=oven-sh/bun extractVersion=^bun-v(?<version>.+)$
-bun = "1.13.1"
+bun = "1.3.14"
 
 # ── Linting / formatting ──────────────────────────────────────────────────────
 # renovate: datasource=github-releases depName=DavidAnson/markdownlint-cli2
