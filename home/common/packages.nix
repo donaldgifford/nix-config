@@ -37,6 +37,9 @@
 
       # ── Cloud / Infra ───────────────────────────────────────────────────────
       awscli2
+      tea # Gitea CLI
+      wrangler # Cloudflare Workers CLI
+      cargo
 
       # ── Nix tooling ─────────────────────────────────────────────────────────
       nixd
