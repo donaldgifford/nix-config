@@ -82,6 +82,16 @@ in
         user = "terraform";
         extraOptions.IdentityFile = "~/.ssh/admin_poop_systems.pub";
       };
+      "proxmox6" = {
+        hostname = "proxmox6.servers.internal";
+        user = "root";
+        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
+      };
+      "proxmox6-terraform" = {
+        hostname = "proxmox6.servers.internal";
+        user = "terraform";
+        extraOptions.IdentityFile = "~/.ssh/admin_poop_systems.pub";
+      };
 
       # ── Proxmox VMs ────────────────────────────────────────────────────────
       "k3s" = {
