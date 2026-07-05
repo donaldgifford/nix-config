@@ -186,6 +186,36 @@ in
         user = "git";
         extraOptions.IdentityFile = "~/.ssh/donald.pub";
       };
+      # ── r740a (fartlab) ───────────────────────────────────────────────────
+      "r740a 10.10.11.20" = {
+        hostname = "10.10.11.20";
+        user = "root";
+        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
+      };
+      # ── r640 (fartlab) ───────────────────────────────────────────────────
+      "r640a 10.10.11.21" = {
+        hostname = "10.10.11.21";
+        user = "root";
+        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
+      };
+      # ── beelink01 (fartlab) ───────────────────────────────────────────────────
+      "beelink01 10.10.11.30" = {
+        hostname = "10.10.11.30";
+        user = "root";
+        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
+      };
+      # ── beelink02 (fartlab) ───────────────────────────────────────────────────
+      "beelink02 10.10.11.31" = {
+        hostname = "10.10.11.31";
+        user = "root";
+        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
+      };
+      # ── beelink03 (fartlab) ───────────────────────────────────────────────────
+      "beelink03 10.10.11.32" = {
+        hostname = "10.10.11.32";
+        user = "root";
+        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
+      };
     };
   };
 }
