@@ -40,6 +40,11 @@
     CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "0";
   };
 
+  # herdr trial (INV-0002) — mac-only for now, side-by-side with tmux
+  home.packages = [
+    inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
+
   home.sessionPath = [
     "$HOME/.local/bin"
     # "$HOME/go/bin"

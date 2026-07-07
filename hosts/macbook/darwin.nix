@@ -55,6 +55,13 @@
       upgrade = true;
     };
 
+    # Declared so cleanup="zap" doesn't untap them each activation —
+    # untapping wipes `brew trust` markers, which is why trust never stuck.
+    taps = [
+      "dlvhdr/formulae"
+      "anomalyco/tap"
+    ];
+
     # CLI tools that work better via brew on macOS (prefer nix when possible)
     brews = [
       "mas" # Mac App Store CLI (needed for masApps below)

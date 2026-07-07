@@ -1,0 +1,23 @@
+# herdr — trial config (INV-0002)
+# Full defaults: `herdr --default-config`
+# Invalid values fall back to defaults with a startup warning, so
+# experiment freely.
+
+[keys]
+# Defaults that already match tmux muscle memory (listed for reference):
+#   prefix           = ctrl+b
+#   focus h/j/k/l    = prefix+h/j/k/l   (pain-control style)
+#   copy mode        = prefix+[
+#   new tab          = prefix+c
+#   next/prev tab    = prefix+n / prefix+p
+
+# tmux detach is `prefix d` (herdr default: prefix+q)
+# TODO: verify exact action name via `herdr --default-config`
+detach = "prefix+d"
+
+# pain-control splits are `prefix |` / `prefix -`. herdr defaults are
+# prefix+v (vertical) / prefix+minus (horizontal); minus already matches.
+# Pipe may not be a supported named key — check --default-config output.
+
+[theme]
+name = "tokyo-night"

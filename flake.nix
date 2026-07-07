@@ -28,6 +28,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Trial — see INV-0002. Pinned to release tag; bump manually.
+    herdr = {
+      url = "github:ogulcancelik/herdr/v0.7.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lazyvim-nix = {
       url = "github:pfassina/lazyvim-nix/a88c488cfd96e1d4274d34d2e35ddbe99dbe5757";
       inputs.nixpkgs.follows = "nixpkgs-stable";
