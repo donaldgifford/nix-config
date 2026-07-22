@@ -32,5 +32,6 @@ in
     "1Password/ssh/agent.toml".source = link "1Password/ssh/agent.toml";
     "mise/conf.d/global.toml".source = link "mise/conf.d/global.toml";
     "herdr/config.toml".source = link "herdr/config.toml";
+    "herdr/scripts/agent-picker.sh".source = link "herdr/scripts/agent-picker.sh";
   };
 }

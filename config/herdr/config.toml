@@ -1,3 +1,4 @@
+onboarding = false
 # herdr — trial config (INV-0002)
 # Full defaults: `herdr --default-config`
 # Invalid values fall back to defaults with a startup warning, so
@@ -7,17 +8,78 @@
 # Defaults that already match tmux muscle memory (listed for reference):
 #   prefix           = ctrl+b
 #   focus h/j/k/l    = prefix+h/j/k/l   (pain-control style)
-#   copy mode        = prefix+[
 #   new tab          = prefix+c
 #   next/prev tab    = prefix+n / prefix+p
+#   close pane       = prefix+x         (matches our `bind x kill-pane`)
+#   zoom             = prefix+z
+#   reload config    = prefix+shift+r   (tmux: bind r)
+#   scrollback→nvim  = prefix+e
 
 # tmux detach is `prefix d` (herdr default: prefix+q)
-# TODO: verify exact action name via `herdr --default-config`
 detach = "prefix+d"
 
-# pain-control splits are `prefix |` / `prefix -`. herdr defaults are
-# prefix+v (vertical) / prefix+minus (horizontal); minus already matches.
-# Pipe may not be a supported named key — check --default-config output.
+# Default prefix+shift+t is rename_tab — moved to prefix+, (tmux
+# rename-window) to free T for the sessionizer below.
+rename_tab = "prefix+comma"
+
+# claude-tmux-notify replacement: cycle agents needing attention.
+# tmux was `prefix C-c` cycle / `prefix C-y` picker.
+next_agent = "prefix+ctrl+c"
+previous_agent = "prefix+ctrl+p"
+# Jump to whichever agent fired the last notification (picker-ish).
+# Default: open_notification_target = "prefix+o"
+
+# pain-control splits were `prefix |` / `prefix -`; herdr defaults are
+# prefix+v / prefix+minus. minus already matches; keeping v for vertical.
+
+# Popup-style lazygit pane (tmux display-popup equivalent)
+[[keys.command]]
+key = "prefix+alt+g"
+type = "pane"
+command = "lazygit"
+
+# Agent picker — claude-tmux-notify `prefix C-y` workflow: fzf over agent
+# sessions (blocked first) with live pane preview; enter focuses.
+[[keys.command]]
+key = "prefix+ctrl+y"
+type = "pane"
+command = "~/.config/herdr/scripts/agent-picker.sh"
+description = "agent picker (blocked first)"
+
+# Sesh picker — reads our sesh.toml (workspaces + presets + zoxide)
+[[keys.command]]
+key = "prefix+shift+t"
+type = "plugin_action"
+command = "fullerzz.sesh.open-picker"
+description = "open sesh picker"
+
+# Previous workspace toggle (tmux `prefix l` style)
+[[keys.command]]
+key = "prefix+shift+b"
+type = "plugin_action"
+command = "fullerzz.sesh.last"
+description = "previous sesh workspace"
+
+# Worktree picker — create/reopen a git worktree as a workspace
+[[keys.command]]
+key = "prefix+shift+u"
+type = "plugin_action"
+command = "sessionizer.worktree-open"
+description = "open worktree workspace"
 
 [theme]
 name = "tokyo-night"
+
+[ui]
+# Attention queue ordering — agents needing input bubble to the top.
+# This is the claude-tmux-notify picker workflow, native.
+agent_panel_sort = "priority"
+
+show_agent_labels_on_pane_borders = true
+[ui.toast]
+# Desktop notifications when a background agent finishes / needs input
+# (claude-tmux-notify status-bar 🤖 equivalent).
+delivery = "system"
+
+[ui.sound]
+enabled = false
