@@ -1,5 +1,5 @@
 ---
-qprSections:
+prSections:
   - title: My Pull Requests
     filters: is:open author:@me
   - title: Needs My Review
@@ -54,19 +54,28 @@ keybindings:
       command: >
         cd {{.RepoPath}} && lazygit
   issues:
+    # direct exec (no tmux) — works inside herdr and tmux alike;
+    # gh-dash suspends fullscreen and returns when the command exits
     - key: B
       command: >
-        tmux display-popup -d {{.RepoPath}} -w 65 -h 10 -E 'ghprb {{.IssueNumber}}'
+        cd {{.RepoPath}} && ghprb {{.IssueNumber}}
     - key: e
       command: >
-        tmux new-window -c {{.RepoPath}} 'nvim -c ":silent Octo issue edit {{.IssueNumber}}"'
+        cd {{.RepoPath}} && nvim -c ":silent Octo issue edit {{.IssueNumber}}"
     - key: i
       command: >
-        tmux display-popup -d {{.RepoPath}} -w 80% -h 90% -E 'nvim -c ":silent Octo issue create"'
+        cd {{.RepoPath}} && nvim -c ":silent Octo issue create"
   prs:
     - key: O
       command: >
-        tmux new-window -c {{.RepoPath}} 'nvim -c ":silent Octo pr edit {{.PrNumber}}"'
+        cd {{.RepoPath}} && nvim -c ":silent Octo pr edit {{.PrNumber}}"
+    # full hunk review UI (menu bar) — pager mode (d) is minimal by design,
+    # so D routes through a temp file to get a real review session
+    - key: D
+      name: hunk review
+      command: >
+        gh pr diff --repo {{.RepoName}} {{.PrNumber}} > /tmp/gh-dash-pr-{{.PrNumber}}.patch
+        && hunk patch /tmp/gh-dash-pr-{{.PrNumber}}.patch --theme auto
     - key: v
       name: approve
       command: >

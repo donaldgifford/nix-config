@@ -352,6 +352,11 @@
     enableZshIntegration = true;
   };
 
+  # lazygit on macOS reads ~/Library/Application Support/lazygit by default,
+  # ignoring our themed ~/.config/lazygit/config.yml (snacks.lazygit passes
+  # that path explicitly inside nvim — this makes CLI lazygit match it).
+  home.sessionVariables.LG_CONFIG_FILE = "$HOME/.config/lazygit/config.yml";
+
   # ── Nushell ───────────────────────────────────────────────────────────────
   # Installed but not set as default shell — use `nu` to drop into it.
   # Nushell is a structured data shell; great for exploring JSON/YAML output.

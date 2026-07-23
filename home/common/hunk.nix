@@ -9,8 +9,10 @@
     # Conflicting delta entries in git.nix must be commented out (see git.nix).
     enableGitIntegration = true;
     settings = {
-      theme = "graphite";
+      theme = "tokyo-night";
       mode = "split";
+      menu_bar = true;
+      agent_notes = false;
       line_numbers = true;
     };
   };
