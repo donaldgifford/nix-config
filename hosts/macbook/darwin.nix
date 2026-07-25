@@ -60,6 +60,7 @@
     taps = [
       "dlvhdr/formulae"
       "anomalyco/tap"
+      "authzed/tap"
     ];
 
     # CLI tools that work better via brew on macOS (prefer nix when possible)
@@ -69,6 +70,7 @@
       "anomalyco/tap/opencode" # opencode
       "rsync" # newer than macOS-shipped rsync 2.6.9
       "git-filter-repo" # git filter repo
+      "authzed/tap/spicedb" # SpiceDB — also provides the authzed schema LSP
     ];
 
     # GUI applications
