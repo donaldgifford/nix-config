@@ -30,7 +30,7 @@
 
     # Trial — see INV-0002. Pinned to release tag; bump manually.
     herdr = {
-      url = "github:ogulcancelik/herdr/v0.7.1";
+      url = "github:ogulcancelik/herdr/v0.7.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

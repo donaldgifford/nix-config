@@ -58,7 +58,6 @@
     # Declared so cleanup="zap" doesn't untap them each activation —
     # untapping wipes `brew trust` markers, which is why trust never stuck.
     taps = [
-      "dlvhdr/formulae"
       "anomalyco/tap"
       "authzed/tap"
     ];
@@ -66,11 +65,9 @@
     # CLI tools that work better via brew on macOS (prefer nix when possible)
     brews = [
       "mas" # Mac App Store CLI (needed for masApps below)
-      "dlvhdr/formulae/diffnav" # diffnav
       "anomalyco/tap/opencode" # opencode
       "rsync" # newer than macOS-shipped rsync 2.6.9
       "git-filter-repo" # git filter repo
-      "authzed/tap/spicedb" # SpiceDB — also provides the authzed schema LSP
     ];
 
     # GUI applications
@@ -82,6 +79,7 @@
 
       # ── Dev ──
       "docker-desktop" # Docker Desktop
+      "authzed/tap/spicedb" # SpiceDB — cask in their tap; provides the schema LSP
 
       # ── Browsers ──
       "firefox" # or "google-chrome", "firefox"

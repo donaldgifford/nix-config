@@ -53,6 +53,7 @@
       # ── Git / GitHub ────────────────────────────────────────────────────────
       gh
       forgejo-cli
+      diffnav # git diff pager (was dlvhdr/formulae tap — broken checksums)
 
       # ── Kubernetes ──────────────────────────────────────────────────────────
       krew
