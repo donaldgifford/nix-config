@@ -53,14 +53,20 @@
       autoUpdate = true;
       cleanup = "zap"; # remove anything not declared here
       upgrade = true;
+      # Homebrew 6 turned `--cleanup` into ask-mode (prompts, exits 1 when
+      # unanswered) — --force-cleanup restores the old unattended behavior
+      extraFlags = [ "--force-cleanup" ];
     };
 
-    # Declared so cleanup="zap" doesn't untap them each activation —
-    # untapping wipes `brew trust` markers, which is why trust never stuck.
-    taps = [
-      "anomalyco/tap"
-      "authzed/tap"
-    ];
+    # Homebrew 6 makes the Brewfile the source of truth for tap trust:
+    # `brew bundle cleanup` (run every activation) REPLACES the trust store
+    # with exactly the `trusted:` entries declared here — so manual
+    # `brew trust` never survives an activation. nix-darwin's `taps` option
+    # doesn't support `trusted:` yet, so declare them via extraConfig.
+    extraConfig = ''
+      tap "anomalyco/tap", trusted: true
+      tap "authzed/tap", trusted: true
+    '';
 
     # CLI tools that work better via brew on macOS (prefer nix when possible)
     brews = [
