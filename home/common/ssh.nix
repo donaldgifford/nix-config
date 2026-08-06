@@ -94,20 +94,6 @@ in
       };
 
       # ── Proxmox VMs ────────────────────────────────────────────────────────
-      "k3s" = {
-        hostname = "k3s.fatman.servers.internal";
-        user = "donald";
-        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "asss" = {
-        hostname = "asss.servers.internal";
-        user = "donald";
-        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "gitea.fartlab.dev" = {
-        user = "git";
-        port = 2222;
-      };
 
       # ── UCG Fiber ───────────────────────────────────────────────────────────
       "ucg" = {
@@ -138,33 +124,9 @@ in
         extraOptions.IdentityFile = "~/.ssh/root_home.pub";
       };
 
-      # ── Home Assistant ──────────────────────────────────────────────────────
-      "hass" = {
-        hostname = "10.10.10.161";
+      "ns1 10.10.10.190" = {
+        hostname = "10.10.10.190";
         user = "root";
-        extraOptions.IdentityFile = "~/.ssh/fatman.pub";
-      };
-
-      # ── Claude Ops ──────────────────────────────────────────────────────────
-      "donald3" = {
-        hostname = "localhost";
-        port = 2222;
-        user = "user";
-        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "fc-test" = {
-        hostname = "10.10.11.33";
-        user = "donald";
-        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "remote-claude" = {
-        hostname = "10.10.11.197";
-        user = "donald";
-        extraOptions.IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "stoat" = {
-        hostname = "10.10.11.143";
-        user = "donald";
         extraOptions.IdentityFile = "~/.ssh/root_home.pub";
       };
 
