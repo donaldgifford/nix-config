@@ -23,11 +23,6 @@
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
-    hunk = {
-      url = "github:modem-dev/hunk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Trial — see INV-0002. Pinned to release tag; bump manually.
     herdr = {
       url = "github:ogulcancelik/herdr/v0.7.5";

@@ -62,7 +62,7 @@
       starship
       sesh
       direnv
-      mise
+      # mise — installed by programs.mise (home/common/mise.nix); don't duplicate
       gh # GitHub CLI
       btop
       yazi

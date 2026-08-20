@@ -4,7 +4,7 @@ return {
 	-- Enable mdp
 	{
 		"donaldgifford/mdp",
-		-- branch = "feat/log-file-docs", -- Development branch
+		-- branch = "feat/impl-0006", -- Development branch
 		keys = {
 			{ "<leader>cp", "<cmd>MdpToggle<cr>", desc = "Toggle markdown preview" },
 			{ "<leader>mo", "<cmd>MdpOpen<cr>", desc = "Open preview in browser" },

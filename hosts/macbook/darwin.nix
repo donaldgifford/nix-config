@@ -74,6 +74,7 @@
       "anomalyco/tap/opencode" # opencode
       "rsync" # newer than macOS-shipped rsync 2.6.9
       "git-filter-repo" # git filter repo
+      "poppler" # pdf renderer
     ];
 
     # GUI applications
