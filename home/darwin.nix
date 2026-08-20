@@ -19,7 +19,6 @@
     ./common/claude.nix
     ./common/fonts.nix
     ./common/onepassword-plugins.nix
-    ./common/hunk.nix
   ];
 
   home.username = "donaldgifford";
@@ -39,6 +38,11 @@
     # set to 0 to try remote env
     CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "0";
   };
+
+  # herdr trial (INV-0002) — mac-only for now, side-by-side with tmux
+  home.packages = [
+    inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 
   home.sessionPath = [
     "$HOME/.local/bin"

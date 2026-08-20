@@ -1,4 +1,4 @@
 ---
 ui:
-  colorFileNames: false
+  colorFileNames: true
   icons: nerd-fonts-full

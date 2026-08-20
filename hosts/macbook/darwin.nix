@@ -53,15 +53,28 @@
       autoUpdate = true;
       cleanup = "zap"; # remove anything not declared here
       upgrade = true;
+      # Homebrew 6 turned `--cleanup` into ask-mode (prompts, exits 1 when
+      # unanswered) — --force-cleanup restores the old unattended behavior
+      extraFlags = [ "--force-cleanup" ];
     };
+
+    # Homebrew 6 makes the Brewfile the source of truth for tap trust:
+    # `brew bundle cleanup` (run every activation) REPLACES the trust store
+    # with exactly the `trusted:` entries declared here — so manual
+    # `brew trust` never survives an activation. nix-darwin's `taps` option
+    # doesn't support `trusted:` yet, so declare them via extraConfig.
+    extraConfig = ''
+      tap "anomalyco/tap", trusted: true
+      tap "authzed/tap", trusted: true
+    '';
 
     # CLI tools that work better via brew on macOS (prefer nix when possible)
     brews = [
       "mas" # Mac App Store CLI (needed for masApps below)
-      "dlvhdr/formulae/diffnav" # diffnav
       "anomalyco/tap/opencode" # opencode
       "rsync" # newer than macOS-shipped rsync 2.6.9
       "git-filter-repo" # git filter repo
+      "poppler" # pdf renderer
     ];
 
     # GUI applications
@@ -73,6 +86,7 @@
 
       # ── Dev ──
       "docker-desktop" # Docker Desktop
+      "authzed/tap/spicedb" # SpiceDB — cask in their tap; provides the schema LSP
 
       # ── Browsers ──
       "firefox" # or "google-chrome", "firefox"

@@ -53,6 +53,7 @@
       # ── Git / GitHub ────────────────────────────────────────────────────────
       gh
       forgejo-cli
+      diffnav # git diff pager (was dlvhdr/formulae tap — broken checksums)
 
       # ── Kubernetes ──────────────────────────────────────────────────────────
       krew
@@ -61,7 +62,7 @@
       starship
       sesh
       direnv
-      mise
+      # mise — installed by programs.mise (home/common/mise.nix); don't duplicate
       gh # GitHub CLI
       btop
       yazi

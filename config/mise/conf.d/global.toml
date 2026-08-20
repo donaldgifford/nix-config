@@ -2,7 +2,7 @@
 
 # ── Runtimes ──────────────────────────────────────────────────────────────────
 # renovate: datasource=github-tags depName=golang/go extractVersion=^go(?<version>.+)$
-go = "1.26.4"
+go = "1.26.6"
 # renovate: datasource=node-version depName=node
 node = "24.14.0"
 # renovate: datasource=github-tags depName=rust-lang/rust
@@ -92,7 +92,7 @@ kubebuilder = "4.14.0"
 # renovate: datasource=github-releases depName=argoproj/argo-cd
 argocd = "3.3.6"
 # talosctl pinned to cluster version — do NOT renovate
-talosctl = "1.12.1"
+talosctl = "1.13.8"
 # renovate: datasource=github-releases depName=helm/helm
 helm = "3.19.0"
 # renovate: datasource=github-releases depName=helm/chart-releaser
@@ -128,13 +128,13 @@ yarn = "4.13.0"
 
 # ── donaldgifford ─────────────────────────────────────────────────────────────
 # renovate: datasource=github-releases depName=donaldgifford/forge
-"github:donaldgifford/forge" = "0.7.0"
+"github:donaldgifford/forge" = "0.8.1"
 # renovate: datasource=github-releases depName=donaldgifford/docz
-"github:donaldgifford/docz" = "0.4.1"
+"github:donaldgifford/docz" = "1.1.1"
 # renovate: datasource=github-releases depName=donaldgifford/makefmt
 "github:donaldgifford/makefmt" = "0.0.3"
 # renovate: datasource=github-releases depName=donaldgifford/mdp
-"github:donaldgifford/mdp" = "0.2.1"
+"github:donaldgifford/mdp" = "0.3.0"
 # renovate: datasource=github-releases depName=donaldgifford/claudelint
 "github:donaldgifford/claudelint" = "0.2.0"
 
@@ -159,3 +159,10 @@ syft = "1.42.3"
 "github:localstack/lstk" = "0.9.0"
 # renovate: datasource=github-releases depName=sigstore/cosign
 cosign = "3.1.1"
+# git diff pager — was a nix flake input, but it pulled bun2nix which pinned
+# nixpkgs to a pre-26.11 rev (see git log). ubi backend: assets are named
+# hunkdiff-*, the binary inside is `hunk`.
+# renovate: datasource=github-releases depName=modem-dev/hunk
+"ubi:modem-dev/hunk" = "0.18.0"
+
+"github:can1357/oh-my-pi" = "16.3.15"

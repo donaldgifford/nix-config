@@ -44,7 +44,9 @@ in
 
       core = {
         editor = "nvim";
-        # pager = "delta";  # hunk owns core.pager via enableGitIntegration
+        # hunk is installed via mise (config/mise/conf.d/global.toml), not nix —
+        # so set the pager here rather than via its HM module's enableGitIntegration.
+        pager = "hunk pager";
       };
 
       extraConfig = {
@@ -126,6 +128,7 @@ in
     };
     extensions = with pkgs; [
       gh-dash
+      gh-stack
     ];
   };
 }
