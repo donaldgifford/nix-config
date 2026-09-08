@@ -112,6 +112,11 @@ in
 
       # Claude notify in status bar (prepend to tokyo night status-right)
       set -g status-right '#{E:@tokyo-night-tmux_prepend_status_right}#(~/.local/share/tmux/claude-tmux-notify/scripts/status.sh)'
+
+      # ── Theme override — must stay LAST ─────────────────────────────────
+      # Sourced after the tokyo-night plugin and the status-right above so the
+      # active theme (config/themes/current, managed by `theme`) wins.
+      source-file -q ~/.config/themes/current/tmux.conf
     '';
   };
 

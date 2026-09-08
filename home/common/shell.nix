@@ -249,6 +249,12 @@
         delta "$HOME/.config/$rel" "$generated"
       }
       alias nrd-mise="hm-diff mise/config.toml"
+
+      # ── Theme switcher (config/themes) ────────────────────────────────────
+      # env.zsh sets BAT_THEME / EZA_CONFIG_DIR and appends fzf colors; it must
+      # run after HM's fzf init so FZF_DEFAULT_OPTS appends win.
+      [ -f "$HOME/.config/themes/current/env.zsh" ] && source "$HOME/.config/themes/current/env.zsh"
+      alias theme="$HOME/.config/themes/theme-switch.sh"
     '';
   };
   #   initContent = ''
