@@ -22,7 +22,7 @@ $aws\
 $time\
 """
 
-palette = 'warm_burnout_dark'
+palette = 'tokyonight_dark'
 
 [fill]
 symbol = " "
