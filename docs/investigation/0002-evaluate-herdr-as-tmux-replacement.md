@@ -98,8 +98,9 @@ From herdr.dev (v0.7.1, ~12.9k stars, actively pushed as of 2026-07-06):
 - Install: curl script, homebrew formula (`brew install herdr`), nix flake
   (`github:ogulcancelik/herdr/vX.Y.Z` — package outputs only, no HM module)
 - No Electron, no accounts, no telemetry
-- License: dual AGPL-3.0-or-later + commercial (GitHub shows "Other" due to
-  the dual-license preamble). Personal terminal use carries no obligations.
+- License: ~~dual AGPL-3.0-or-later + commercial~~ **relicensed to Apache-2.0
+  in v0.8.0** (2026-08, alongside the ogulcancelik/herdr → herdrdev/herdr org
+  move). The original AGPL concern is moot.
 
 ## Plugin Ecosystem
 
@@ -194,9 +195,9 @@ home.packages = [ inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.defau
 
 ## Risks / Open Questions
 
-- ~~License is "Other"~~ **Resolved:** dual-licensed AGPL-3.0-or-later +
-  commercial. AGPL only obligates if we modify + distribute/host it;
-  personal terminal use is unencumbered.
+- ~~License is "Other"~~ **Resolved, then improved:** was dual AGPL-3.0 +
+  commercial (fine for personal use); relicensed to plain Apache-2.0 in
+  v0.8.0. No remaining license concern for any use.
 - **Pre-1.0 velocity** — v0.7.x; config format and API may churn. Pinning
   the flake input mitigates surprise upgrades but means manual bumps.
 - **No home-manager module** — config lives outside `programs.*`; we'd use

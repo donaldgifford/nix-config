@@ -14,7 +14,8 @@ in
   xdg.configFile = {
     "ghostty/config".source = link "ghostty/config";
     "sesh/sesh.toml".source = link "sesh/sesh.toml";
-    "eza/theme.yml".source = link "eza/theme.yml";
+    # eza theme comes from EZA_CONFIG_DIR → config/themes/<name>/eza/theme.yml
+    # (repo config/eza/*.yml are reference copies, not linked)
     "btop/btop.conf".source = link "btop/btop.conf";
     "btop/themes/tokyo-night.theme".source = link "btop/themes/tokyo-night.theme";
     "bat/config".source = link "bat/config";
@@ -31,6 +32,11 @@ in
     "diffnav/config.yml".source = link "diffnav/config.yml";
     "1Password/ssh/agent.toml".source = link "1Password/ssh/agent.toml";
     "mise/conf.d/global.toml".source = link "mise/conf.d/global.toml";
+    # Theme switcher: whole dir (per-theme assets + `current` symlink live here)
+    "themes".source = link "themes";
+    "ghostty/themes".source = link "ghostty/themes";
+    "bat/themes/warm-burnout/Warm Burnout Dark.tmTheme".source =
+      link "bat/themes/warm-burnout/Warm Burnout Dark.tmTheme";
     "hunk/config.toml".source = link "hunk/config.toml";
     "herdr/config.toml".source = link "herdr/config.toml";
     "herdr/scripts/agent-picker.sh".source = link "herdr/scripts/agent-picker.sh";

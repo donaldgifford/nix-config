@@ -24,8 +24,9 @@
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
     # Trial — see INV-0002. Pinned to release tag; bump manually.
+    # (repo moved ogulcancelik/herdr → herdrdev/herdr; Apache-2.0 since 0.8.0)
     herdr = {
-      url = "github:ogulcancelik/herdr/v0.7.5";
+      url = "github:herdrdev/herdr/v0.9.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

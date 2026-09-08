@@ -1,0 +1,29 @@
+# Custom Warm Burnout Dark theme — no herdr port upstream, so layer palette
+# token overrides on gruvbox (warmest built-in base for anything not set here).
+# Palette roles from https://github.com/felipefdl/warm-burnout (zellij port).
+# Keys validated against herdr 0.7.5 (`herdr config check`).
+[theme]
+name = "gruvbox"
+
+[theme.custom]
+panel_bg = "reset"
+accent = "#ff8f40" # burnt orange
+red = "#f06b73"
+green = "#b4bc78" # dried sage
+blue = "#90aec0" # steel patina
+yellow = "#ffb454" # amber
+mauve = "#d4a8b8" # dusty mauve
+teal = "#96b898" # verdigris
+peach = "#ec9878" # coral
+text = "#bfbdb6"
+subtext0 = "#b4a89c" # warm stone
+surface0 = "#222018" # widget surface
+surface1 = "#302a22" # borders / selection
+surface_dim = "#14120f" # status bg
+overlay0 = "#686868"
+overlay1 = "#7a746a"
+
+# Semantic keys (valid from herdr 0.9.0; older versions warn + ignore)
+sidebar_bg = "#14120f"
+active_row_bg = "#222018"
+selection_bg = "#302a22"

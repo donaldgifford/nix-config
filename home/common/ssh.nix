@@ -137,6 +137,12 @@ in
         IdentityFile = "~/.ssh/root_home.pub";
       };
 
+      "ns3 10.10.10.192" = {
+        Hostname = "10.10.10.192";
+        User = "root";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+
       # ── NixOS Workstation ───────────────────────────────────────────────────
       "nixos" = {
         Hostname = "10.10.10.14";
