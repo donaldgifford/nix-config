@@ -75,6 +75,7 @@
       "rsync" # newer than macOS-shipped rsync 2.6.9
       "git-filter-repo" # git filter repo
       "poppler" # pdf renderer
+      "pngquant" # https://pngquant.org/
     ];
 
     # GUI applications

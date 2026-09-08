@@ -107,12 +107,6 @@ in
     };
   };
 
-  home.activation.installGhExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if command -v gh &> /dev/null; then
-      gh extension list | grep -q "dlvhdr/gh-enhance" || gh extension install dlvhdr/gh-enhance 2>/dev/null || echo "⚠ Failed to install gh-enhance (not logged in?)"
-    fi
-  '';
-
   programs.gh = {
     enable = true;
     settings = {
@@ -128,6 +122,7 @@ in
     };
     extensions = with pkgs; [
       gh-dash
+      gh-enhance # gh-dash companion (dlvhdr/gh-enhance) — free since the insiders program ended
       gh-stack
     ];
   };
