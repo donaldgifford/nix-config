@@ -58,6 +58,11 @@
       # ── Kubernetes ──────────────────────────────────────────────────────────
       krew
 
+      # ── Hardware keys ───────────────────────────────────────────────────────
+      # ykman CLI. Not mise: the GitHub release is a .pkg/.msi + sdist, no
+      # binary. Uses the OS PC/SC stack; FIDO subcommands need sudo on macOS.
+      yubikey-manager
+
       # ── Misc ────────────────────────────────────────────────────────────────
       starship
       sesh
