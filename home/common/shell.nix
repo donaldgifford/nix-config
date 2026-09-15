@@ -390,6 +390,18 @@
           vi_normal: block
         }
       }
+
+      # Repo modules: config/nushell/modules → ~/.config/nushell/modules
+      # (linked by configs.nix). `const` so `use` resolves at parse time;
+      # the stock scripts dir is kept so ad-hoc local scripts still load.
+      # NB: parse-time $nu only has home-dir (home-path is runtime-only).
+      const NU_LIB_DIRS = [
+        ($nu.default-config-dir | path join 'scripts')
+        ($nu.home-dir | path join '.config' 'nushell' 'modules')
+      ]
+      use k8s.nu       # namespaced:  k8s pods, k8s nodes, k8s events, ...
+      use aws.nu *     # prefixed:    aws-ec2, aws-eks-clusters, aws-whoami, ...
+      use tf.nu *      # prefixed:    tf-state, tf-plan-summary, tf-providers, ...
     '';
 
     # Environment config

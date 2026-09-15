@@ -8,3 +8,10 @@ home/common/fonts/**/*.ttf
 config/lstk/machine_id
 config/lstk/plan_label
 config/themes/current
+
+# nushell env overlays hold per-account/profile details — local only
+config/nushell/overlays/*.nu
+!config/nushell/overlays/example.nu
+
+# scratch docs (raw notes, vendored guides) — may contain env details
+docs/examples/

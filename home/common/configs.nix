@@ -40,5 +40,11 @@ in
     "hunk/config.toml".source = link "hunk/config.toml";
     "herdr/config.toml".source = link "herdr/config.toml";
     "herdr/scripts/agent-picker.sh".source = link "herdr/scripts/agent-picker.sh";
+    # Nushell: HM owns config.nu/env.nu (on macOS they live under
+    # ~/Library/Application Support/nushell); modules + overlays are ours and
+    # are picked up via NU_LIB_DIRS in shell.nix. Subdir links, not the whole
+    # dir, so this coexists with HM's own files on Linux (~/.config/nushell).
+    "nushell/modules".source = link "nushell/modules";
+    "nushell/overlays".source = link "nushell/overlays";
   };
 }
