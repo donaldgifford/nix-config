@@ -46,5 +46,14 @@ in
     # dir, so this coexists with HM's own files on Linux (~/.config/nushell).
     "nushell/modules".source = link "nushell/modules";
     "nushell/overlays".source = link "nushell/overlays";
+    # opencode owns the rest of ~/.config/opencode (plugin node_modules,
+    # package.json, its own .gitignore) so link files, not the dir. `force`
+    # replaces the stub opencode.jsonc it wrote on first run.
+    "opencode/opencode.jsonc" = {
+      source = link "opencode/opencode.jsonc";
+      force = true;
+    };
+    "opencode/themes/tokyonight.json".source = link "opencode/tokyonight.json";
+    "opencode/themes/tokyonight_storm.json".source = link "opencode/tokyonight_storm.json";
   };
 }

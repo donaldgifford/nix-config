@@ -1,0 +1,42 @@
+// opencode — linked to ~/.config/opencode/opencode.jsonc by home/common/configs.nix.
+// Servers come from nix (home/common/opencode.nix) or mise; downloads are off
+// (OPENCODE_DISABLE_LSP_DOWNLOAD=true), so a missing binary just means no LSP
+// for that language rather than a surprise fetch into ~/.cache/opencode/bin.
+//
+// Built-ins that need nothing but the binary on PATH:
+//   gopls, rust-analyzer, nixd, clangd, yaml-language-server,
+//   bash-language-server, terraform-ls, docker-langserver, tinymist,
+//   typescript-language-server, lua-language-server
+// typescript additionally needs typescript/lib/tsserver.js resolvable from
+// the project (typescript@5 has it; the Go-native typescript@7 does not, so
+// TS 7 projects get no LSP — opencode bails silently).
+// Check what attached:  opencode debug lsp diagnostics <file>
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": {
+    // Python: built-in pyright looks for `pyright-langserver`; we run
+    // basedpyright + ruff (same pair as nvim).
+    "pyright": { "disabled": true },
+    "basedpyright": {
+      "command": ["basedpyright-langserver", "--stdio"],
+      "extensions": [".py", ".pyi"]
+    },
+    "ruff": {
+      "command": ["ruff", "server"],
+      "extensions": [".py", ".pyi"]
+    },
+    // Not built in
+    "marksman": {
+      "command": ["marksman", "server"],
+      "extensions": [".md", ".markdown"]
+    },
+    "taplo": {
+      "command": ["taplo", "lsp", "stdio"],
+      "extensions": [".toml"]
+    },
+    "json": {
+      "command": ["vscode-json-language-server", "--stdio"],
+      "extensions": [".json", ".jsonc"]
+    }
+  }
+}
