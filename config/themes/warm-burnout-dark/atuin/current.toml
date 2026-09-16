@@ -1,0 +1,22 @@
+# Warm Burnout Dark — atuin search UI.
+# ~/.config/atuin/themes/current.toml links here through the switcher's
+# `current` symlink (home/common/atuin.nix), so the file name is fixed.
+# Palette roles from https://github.com/felipefdl/warm-burnout
+# Keys: https://docs.atuin.sh/guide/theming/
+
+[theme]
+name = "current"
+
+[colors]
+Base = "#bfbdb6"          # text
+Title = "#ff8f40"         # burnt orange
+Annotation = "#b4a89c"    # warm stone
+Guidance = "#90aec0"      # steel patina
+Important = "#f06b73"     # red
+Muted = "#7a746a"         # overlay
+AlertInfo = "#b4bc78"     # dried sage
+AlertWarn = "#ffb454"     # amber
+AlertError = "#f06b73"
+SyntaxCommand = "#ffb454" # amber
+SyntaxFlag = "#d4a8b8"    # dusty mauve
+SyntaxString = "#96b898"  # verdigris

@@ -1,0 +1,21 @@
+# Tokyonight Dark (night) — atuin search UI.
+# ~/.config/atuin/themes/current.toml links here through the switcher's
+# `current` symlink (home/common/atuin.nix), so the file name is fixed.
+# Colors match programs.fzf defaultOptions / starship palettes.tokyonight_dark.
+
+[theme]
+name = "current"
+
+[colors]
+Base = "#c0caf5"          # fg
+Title = "#ff9e64"         # orange (fzf header)
+Annotation = "#565f89"    # comment
+Guidance = "#7dcfff"      # cyan
+Important = "#f7768e"     # red
+Muted = "#565f89"
+AlertInfo = "#9ece6a"     # green
+AlertWarn = "#e0af68"     # yellow
+AlertError = "#f7768e"
+SyntaxCommand = "#7aa2f7" # blue
+SyntaxFlag = "#bb9af7"    # magenta
+SyntaxString = "#9ece6a"  # green

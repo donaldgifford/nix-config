@@ -162,8 +162,15 @@
       ZVM_INIT_MODE=sourcing
 
       # ── Vi mode ───────────────────────────────────────────────────────────
+      # zsh-vi-mode resets keymaps on init, so anything that binds keys must
+      # run from this hook (fzf's Ctrl-R, set earlier by HM, is lost here).
       function zvm_after_init() {
-        bindkey '^R' fzf-history-widget
+        # atuin (home/common/atuin.nix): Ctrl-R in insert mode, `/` in normal
+        # mode. Up/Down stay on substring search (atuin runs --disable-up-arrow).
+        eval "$(${lib.getExe config.programs.atuin.package} init zsh ${lib.escapeShellArgs config.programs.atuin.flags})"
+        # 18.18 also binds `?` on an empty line to atuin's hosted AI prompt —
+        # no config switch for it yet, so give `?` back to plain insert.
+        bindkey -M viins '?' self-insert
         bindkey '^[[A' history-substring-search-up
         bindkey '^[[B' history-substring-search-down
       }
