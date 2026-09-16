@@ -10,6 +10,7 @@
     # inputs.lazyvim-nix.homeManagerModules.default
     ./common/configs.nix
     ./common/shell.nix
+    ./common/atuin.nix
     ./common/git.nix
     ./common/ssh.nix
     ./common/neovim.nix
