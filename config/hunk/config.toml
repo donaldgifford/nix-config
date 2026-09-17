@@ -1,0 +1,5 @@
+agent_notes = false
+line_numbers = true
+menu_bar = true
+mode = "split"
+theme = "tokyo-night"

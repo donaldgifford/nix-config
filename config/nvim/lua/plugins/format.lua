@@ -26,6 +26,8 @@ return {
 				toml = { "taplo" },
 				rust = { "rustfmt" },
 				typst = { "typstyle", lsp_format = "prefer" },
+				json = { "prettier" },
+				json5 = { "prettier" },
 			},
 			formatters = {
 				yamlfmt = {

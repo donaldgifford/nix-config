@@ -8,7 +8,7 @@
   imports = [ inputs._1password-shell-plugins.hmModules.default ];
 
   programs._1password-shell-plugins = {
-    enable = true;
+    enable = false;
     plugins = with pkgs; [
       # NOTE: gh intentionally not wrapped — breaks non-interactive use
       # (e.g. Claude Code). Use `gh auth login` once; it stores the token

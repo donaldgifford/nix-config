@@ -37,6 +37,9 @@
 
       # ── Cloud / Infra ───────────────────────────────────────────────────────
       awscli2
+      tea # Gitea CLI
+      wrangler # Cloudflare Workers CLI
+      cargo
 
       # ── Nix tooling ─────────────────────────────────────────────────────────
       nixd
@@ -49,15 +52,26 @@
 
       # ── Git / GitHub ────────────────────────────────────────────────────────
       gh
+      forgejo-cli
+      diffnav # git diff pager (was dlvhdr/formulae tap — broken checksums)
 
       # ── Kubernetes ──────────────────────────────────────────────────────────
       krew
+
+      # ── Temporal ──────────────────────────────────────────────────────────
+      temporal-cli
+      temporal
+
+      # ── Hardware keys ───────────────────────────────────────────────────────
+      # ykman CLI. Not mise: the GitHub release is a .pkg/.msi + sdist, no
+      # binary. Uses the OS PC/SC stack; FIDO subcommands need sudo on macOS.
+      yubikey-manager
 
       # ── Misc ────────────────────────────────────────────────────────────────
       starship
       sesh
       direnv
-      mise
+      # mise — installed by programs.mise (home/common/mise.nix); don't duplicate
       gh # GitHub CLI
       btop
       yazi

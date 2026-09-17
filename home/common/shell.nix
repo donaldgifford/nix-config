@@ -162,8 +162,15 @@
       ZVM_INIT_MODE=sourcing
 
       # ── Vi mode ───────────────────────────────────────────────────────────
+      # zsh-vi-mode resets keymaps on init, so anything that binds keys must
+      # run from this hook (fzf's Ctrl-R, set earlier by HM, is lost here).
       function zvm_after_init() {
-        bindkey '^R' fzf-history-widget
+        # atuin (home/common/atuin.nix): Ctrl-R in insert mode, `/` in normal
+        # mode. Up/Down stay on substring search (atuin runs --disable-up-arrow).
+        eval "$(${lib.getExe config.programs.atuin.package} init zsh ${lib.escapeShellArgs config.programs.atuin.flags})"
+        # 18.18 also binds `?` on an empty line to atuin's hosted AI prompt —
+        # no config switch for it yet, so give `?` back to plain insert.
+        bindkey -M viins '?' self-insert
         bindkey '^[[A' history-substring-search-up
         bindkey '^[[B' history-substring-search-down
       }
@@ -228,6 +235,33 @@
         alias nrd="nixos-rebuild build --flake ~/code/nix-config#workstation && nvd diff /run/current-system result"
       fi
       alias nfu="nix flake update ~/code/nix-config"
+
+      # ── hm-diff: diff a live ~/.config/<path> against what HM would generate
+      # usage: hm-diff mise/config.toml
+      hm-diff() {
+        if [[ -z "$1" ]]; then
+          echo "usage: hm-diff <path-under-~/.config>  e.g. hm-diff mise/config.toml"
+          return 1
+        fi
+        local rel="$1"
+        local attr
+        if [[ "$(uname)" == "Darwin" ]]; then
+          attr="darwinConfigurations.donald-mbp.config.home-manager.users.donaldgifford.xdg.configFile.\"$rel\".source"
+        else
+          attr="nixosConfigurations.workstation.config.home-manager.users.donald.xdg.configFile.\"$rel\".source"
+        fi
+        local generated
+        generated=$(nix eval --raw "$HOME/code/nix-config#$attr" 2>/dev/null) \
+          || { echo "hm-diff: couldn't resolve $rel — does HM manage it?"; return 1; }
+        delta "$HOME/.config/$rel" "$generated"
+      }
+      alias nrd-mise="hm-diff mise/config.toml"
+
+      # ── Theme switcher (config/themes) ────────────────────────────────────
+      # env.zsh sets BAT_THEME / EZA_CONFIG_DIR and appends fzf colors; it must
+      # run after HM's fzf init so FZF_DEFAULT_OPTS appends win.
+      [ -f "$HOME/.config/themes/current/env.zsh" ] && source "$HOME/.config/themes/current/env.zsh"
+      alias theme="$HOME/.config/themes/theme-switch.sh"
     '';
   };
   #   initContent = ''
@@ -331,6 +365,11 @@
     enableZshIntegration = true;
   };
 
+  # lazygit on macOS reads ~/Library/Application Support/lazygit by default,
+  # ignoring our themed ~/.config/lazygit/config.yml (snacks.lazygit passes
+  # that path explicitly inside nvim — this makes CLI lazygit match it).
+  home.sessionVariables.LG_CONFIG_FILE = "$HOME/.config/lazygit/config.yml";
+
   # ── Nushell ───────────────────────────────────────────────────────────────
   # Installed but not set as default shell — use `nu` to drop into it.
   # Nushell is a structured data shell; great for exploring JSON/YAML output.
@@ -358,6 +397,18 @@
           vi_normal: block
         }
       }
+
+      # Repo modules: config/nushell/modules → ~/.config/nushell/modules
+      # (linked by configs.nix). `const` so `use` resolves at parse time;
+      # the stock scripts dir is kept so ad-hoc local scripts still load.
+      # NB: parse-time $nu only has home-dir (home-path is runtime-only).
+      const NU_LIB_DIRS = [
+        ($nu.default-config-dir | path join 'scripts')
+        ($nu.home-dir | path join '.config' 'nushell' 'modules')
+      ]
+      use k8s.nu       # namespaced:  k8s pods, k8s nodes, k8s events, ...
+      use aws.nu *     # prefixed:    aws-ec2, aws-eks-clusters, aws-whoami, ...
+      use tf.nu *      # prefixed:    tf-state, tf-plan-summary, tf-providers, ...
     '';
 
     # Environment config

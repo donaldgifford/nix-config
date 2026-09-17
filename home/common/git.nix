@@ -44,7 +44,9 @@ in
 
       core = {
         editor = "nvim";
-        pager = "delta";
+        # hunk is installed via mise (config/mise/conf.d/global.toml), not nix —
+        # so set the pager here rather than via its HM module's enableGitIntegration.
+        pager = "hunk pager";
       };
 
       extraConfig = {
@@ -53,7 +55,7 @@ in
         };
       };
 
-      interactive.diffFilter = "delta --color-only";
+      # interactive.diffFilter = "delta --color-only";  # disabled while testing hunk
 
       delta = {
         syntax-theme = "tokyonight_night";
@@ -89,8 +91,8 @@ in
       };
 
       pager = {
-        log = "delta";
-        reflog = "delta";
+        # log = "delta";     # disabled while testing hunk
+        # reflog = "delta";  # disabled while testing hunk
         # show = "delta";
         show = "diffnav";
         difftool = true;
@@ -104,12 +106,6 @@ in
       tag.gpgsign = true;
     };
   };
-
-  home.activation.installGhExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if command -v gh &> /dev/null; then
-      gh extension list | grep -q "dlvhdr/gh-enhance" || gh extension install dlvhdr/gh-enhance 2>/dev/null || echo "⚠ Failed to install gh-enhance (not logged in?)"
-    fi
-  '';
 
   programs.gh = {
     enable = true;
@@ -126,6 +122,8 @@ in
     };
     extensions = with pkgs; [
       gh-dash
+      gh-enhance # gh-dash companion (dlvhdr/gh-enhance) — free since the insiders program ended
+      gh-stack
     ];
   };
 }

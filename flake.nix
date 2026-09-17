@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,33 +16,47 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
-    # lazyvim-nix = {
-    #   url = "github:pfassina/lazyvim-nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    # Trial — see INV-0002. Pinned to release tag; bump manually.
+    # (repo moved ogulcancelik/herdr → herdrdev/herdr; Apache-2.0 since 0.8.0)
+    herdr = {
+      url = "github:herdrdev/herdr/v0.9.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lazyvim-nix = {
+      url = "github:pfassina/lazyvim-nix/a88c488cfd96e1d4274d34d2e35ddbe99dbe5757";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
+      nixpkgs-stable,
       nix-darwin,
       home-manager,
+      home-manager-stable,
       ...
     }@inputs:
     {
 
       # ── NixOS (workstation) ─────────────────────────────────────────────────
-      nixosConfigurations.workstation = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.workstation = nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/workstation/configuration.nix
           ./hosts/workstation/hardware-configuration.nix
 
-          home-manager.nixosModules.home-manager
+          home-manager-stable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

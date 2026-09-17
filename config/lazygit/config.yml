@@ -24,5 +24,7 @@ gui:
       - "#e0af68"
     unstagedChangesColor:
       - "#db4b4b"
+    # matches snacks.lazygit's generated theme (~/.cache/nvim/lazygit-theme.yml),
+    # which derives this from the nvim colorscheme's Normal fg
     defaultFgColor:
-      - "#c0caf5"
+      - "#a9b1d6"

@@ -45,6 +45,8 @@ return {
 				-- nix
 				"nil",
 				"nixfmt",
+				-- json
+				"fixjson",
 			},
 		},
 	},

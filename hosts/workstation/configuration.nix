@@ -1,13 +1,3 @@
-# ── NixOS Workstation Configuration ───────────────────────────────────────────
-#
-# Copy your existing /etc/nixos/configuration.nix content here.
-# Also copy hardware-configuration.nix into this directory.
-#
-# Key things to update when migrating:
-# - Remove the home-manager import if it's in here (it's in flake.nix now)
-# - Keep all system-level config: boot, networking, nvidia, sway, etc.
-# - The flake handles HM wiring, so this file is purely system config
-#
 {
   config,
   pkgs,
@@ -181,7 +171,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'";
+    	command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'";
         user = "greeter";
       };
     };
@@ -250,16 +240,16 @@
   ];
 
   # ── Nix LD ────────────────────────────────────────────────────────────────────
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc.lib
-      zlib
-      openssl
-      glib
-      libgcc
-    ];
-  };
+programs.nix-ld = {
+  enable = true;
+  libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+    openssl
+    glib
+    libgcc
+  ];
+};
 
   # ── Fonts ─────────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
@@ -318,14 +308,12 @@
 
   # Allow unfree packages (Nvidia driver, VS Code, etc.)
   nixpkgs.config.allowUnfree = true;
-
+  
   # System install of 1Password. This way allows for system authentication and
   # for CLI integration.
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
     polkitPolicyOwners = [ "donald" ];
   };
 
