@@ -8,6 +8,10 @@ Multi-platform Nix flake managing macOS (nix-darwin, `donald-mbp`) and NixOS (wo
 
 ## Build Commands
 
+A `justfile` wraps the common operations — run `just` to list them. Key recipes: `just build` (build + `nvd diff`), `just switch`, `just update` (all flake inputs), `just bump <input>`, `just retag herdr vX.Y.Z` (tag-pinned inputs), `just lock-diff`, `just outdated [pkgs…]`, `just check`.
+
+Raw commands:
+
 ```bash
 # macOS — apply system + home-manager changes
 sudo darwin-rebuild switch --flake ~/code/nix-config

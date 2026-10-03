@@ -171,7 +171,7 @@
     enable = true;
     settings = {
       default_session = {
-    	command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'";
         user = "greeter";
       };
     };
@@ -240,16 +240,16 @@
   ];
 
   # ── Nix LD ────────────────────────────────────────────────────────────────────
-programs.nix-ld = {
-  enable = true;
-  libraries = with pkgs; [
-    stdenv.cc.cc.lib
-    zlib
-    openssl
-    glib
-    libgcc
-  ];
-};
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      openssl
+      glib
+      libgcc
+    ];
+  };
 
   # ── Fonts ─────────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
@@ -308,7 +308,7 @@ programs.nix-ld = {
 
   # Allow unfree packages (Nvidia driver, VS Code, etc.)
   nixpkgs.config.allowUnfree = true;
-  
+
   # System install of 1Password. This way allows for system authentication and
   # for CLI integration.
   programs._1password.enable = true;
