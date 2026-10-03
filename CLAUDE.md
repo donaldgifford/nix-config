@@ -8,7 +8,7 @@ Multi-platform Nix flake managing macOS (nix-darwin, `donald-mbp`) and NixOS (wo
 
 ## Build Commands
 
-A `justfile` wraps the common operations — run `just` to list them. Key recipes: `just build` (build + `nvd diff`), `just switch`, `just update` (all flake inputs), `just bump <input>`, `just retag herdr vX.Y.Z` (tag-pinned inputs), `just lock-diff`, `just outdated [pkgs…]`, `just check`.
+A `justfile` wraps the common operations — run `just` to list them. Key recipes: `just build` (build + `nvd diff`), `just switch`, `just plan [input]` (preview a bump: lock diff + `nvd diff`, nothing written), `just update` (all flake inputs), `just bump <input>`, `just retag herdr vX.Y.Z` (tag-pinned inputs), `just lock-diff`, `just outdated [pkgs…]`, `just check`, `just disk` (store usage + reclaimable), `just clean [days]` (drop old generations + gc, sudo).
 
 Raw commands:
 
