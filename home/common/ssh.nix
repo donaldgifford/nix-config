@@ -31,69 +31,6 @@ in
         # before hitting the right one.
         IdentitiesOnly = "yes";
       };
-
-      # ── Proxmox Servers ────────────────────────────────────────────────────
-      "proxmox1" = {
-        Hostname = "proxmox1.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox1-terraform" = {
-        Hostname = "proxmox1.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox2" = {
-        Hostname = "proxmox2.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox2-terraform" = {
-        Hostname = "proxmox2.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox3" = {
-        Hostname = "proxmox3.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox3-terraform" = {
-        Hostname = "proxmox3.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox4" = {
-        Hostname = "proxmox4.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox4-terraform" = {
-        Hostname = "proxmox4.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox5" = {
-        Hostname = "proxmox5.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox5-terraform" = {
-        Hostname = "proxmox5.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox6" = {
-        Hostname = "proxmox6.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox6-terraform" = {
-        Hostname = "proxmox6.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-
       # ── Proxmox VMs ────────────────────────────────────────────────────────
 
       # ── UCG Fiber ───────────────────────────────────────────────────────────
@@ -104,6 +41,8 @@ in
       };
 
       # ── DNS Servers ─────────────────────────────────────────────────────────
+
+      # NOTE: these are all the old raspberrypis that need to get removed.
       "dns01" = {
         Hostname = "10.10.10.53";
         User = "rpi";
@@ -125,20 +64,35 @@ in
         IdentityFile = "~/.ssh/root_home.pub";
       };
 
-      "ns1 10.10.10.190" = {
+      # ── Intel NUC ─────────────────────────────────────────────────────────
+      # NOTE: Old ns2, migrated away from using as nameserver.
+      "nuc" = {
+        Hostname = "10.10.11.187";
+        User = "root";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+      # ── DNS Servers ─────────────────────────────────────────────────────────
+      # m01 and m02 beelink minis that are set as nameservers.
+      "ns1 m02 10.10.10.190" = {
         Hostname = "10.10.10.190";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
 
-      "ns2 10.10.10.191" = {
+      "ns1-servers m02-servers 10.10.11.190" = {
+        Hostname = "10.10.11.190";
+        User = "root";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+
+      "ns2 m01 10.10.10.191" = {
         Hostname = "10.10.10.191";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
 
-      "ns3 10.10.10.192" = {
-        Hostname = "10.10.10.192";
+      "ns2-servers m01-servers 10.10.11.191" = {
+        Hostname = "10.10.11.191";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
@@ -156,11 +110,8 @@ in
         IdentityFile = "~/.ssh/github.pub";
       };
 
-      # ── Forgejo (fartlab) ───────────────────────────────────────────────────
-      "git.fartlab.dev" = {
-        User = "git";
-        IdentityFile = "~/.ssh/donald.pub";
-      };
+      # ── Proxmox Hosts ────────────────────────────────────────────────────────
+
       # ── r740a (fartlab) ───────────────────────────────────────────────────
       "r740a 10.10.11.20" = {
         Hostname = "10.10.11.20";
@@ -179,24 +130,8 @@ in
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
-      # ── beelink01 (fartlab) ───────────────────────────────────────────────────
-      "beelink01 10.10.11.30" = {
-        Hostname = "10.10.11.30";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      # ── beelink02 (fartlab) ───────────────────────────────────────────────────
-      "beelink02 10.10.11.31" = {
-        Hostname = "10.10.11.31";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      # ── beelink03 (fartlab) ───────────────────────────────────────────────────
-      "beelink03 10.10.11.32" = {
-        Hostname = "10.10.11.32";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
+
+      # ── Proxmox VMs ────────────────────────────────────────────────────────
     };
   };
 }

@@ -13,30 +13,66 @@
 // Check what attached:  opencode debug lsp diagnostics <file>
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-claude-code-bridge@0.2.1",
+    "@donaldgifford/opencode-donald-loop"
+  ],
   "lsp": {
     // Python: built-in pyright looks for `pyright-langserver`; we run
     // basedpyright + ruff (same pair as nvim).
-    "pyright": { "disabled": true },
+    "pyright": {
+      "disabled": true
+    },
     "basedpyright": {
-      "command": ["basedpyright-langserver", "--stdio"],
-      "extensions": [".py", ".pyi"]
+      "command": [
+        "basedpyright-langserver",
+        "--stdio"
+      ],
+      "extensions": [
+        ".py",
+        ".pyi"
+      ]
     },
     "ruff": {
-      "command": ["ruff", "server"],
-      "extensions": [".py", ".pyi"]
+      "command": [
+        "ruff",
+        "server"
+      ],
+      "extensions": [
+        ".py",
+        ".pyi"
+      ]
     },
     // Not built in
     "marksman": {
-      "command": ["marksman", "server"],
-      "extensions": [".md", ".markdown"]
+      "command": [
+        "marksman",
+        "server"
+      ],
+      "extensions": [
+        ".md",
+        ".markdown"
+      ]
     },
     "taplo": {
-      "command": ["taplo", "lsp", "stdio"],
-      "extensions": [".toml"]
+      "command": [
+        "taplo",
+        "lsp",
+        "stdio"
+      ],
+      "extensions": [
+        ".toml"
+      ]
     },
     "json": {
-      "command": ["vscode-json-language-server", "--stdio"],
-      "extensions": [".json", ".jsonc"]
+      "command": [
+        "vscode-json-language-server",
+        "--stdio"
+      ],
+      "extensions": [
+        ".json",
+        ".jsonc"
+      ]
     }
   }
 }
