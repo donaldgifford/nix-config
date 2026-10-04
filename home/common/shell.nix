@@ -28,7 +28,7 @@
     shellAliases = {
       # eza
       # eza (richer than current)
-      ls = "eza -F -gh --group-directories-first --git --git-ignore --icons --color=always --hyperlink";
+      ls = "eza -F -gh --group-directories-first --git --git-ignore --icons --color=always --hyperlink=always"; # bare --hyperlink swallows the next arg (eza ≥0.23 takes an optional WHEN)
       ll = "ls -l";
       lh = "ls -lh";
       la = "ll -a";
