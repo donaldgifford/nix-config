@@ -33,66 +33,6 @@ in
       };
 
       # ── Proxmox Servers ────────────────────────────────────────────────────
-      "proxmox1" = {
-        Hostname = "proxmox1.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox1-terraform" = {
-        Hostname = "proxmox1.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox2" = {
-        Hostname = "proxmox2.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox2-terraform" = {
-        Hostname = "proxmox2.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox3" = {
-        Hostname = "proxmox3.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox3-terraform" = {
-        Hostname = "proxmox3.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox4" = {
-        Hostname = "proxmox4.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox4-terraform" = {
-        Hostname = "proxmox4.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox5" = {
-        Hostname = "proxmox5.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox5-terraform" = {
-        Hostname = "proxmox5.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
-      "proxmox6" = {
-        Hostname = "proxmox6.servers.internal";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "proxmox6-terraform" = {
-        Hostname = "proxmox6.servers.internal";
-        User = "terraform";
-        IdentityFile = "~/.ssh/admin_poop_systems.pub";
-      };
 
       # ── Proxmox VMs ────────────────────────────────────────────────────────
 
