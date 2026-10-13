@@ -23,10 +23,12 @@
 
     _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
-    # Trial — see INV-0002. Pinned to release tag; bump manually.
+    # Trial — see INV-0002. Pinned to a release tag, so `nix flake update herdr`
+    # on its own never moves it: bump the tag here, then run that to re-lock.
+    # Builds from source (rust); nixpkgs has herdr too but lags (0.7.5 in 26.11).
     # (repo moved ogulcancelik/herdr → herdrdev/herdr; Apache-2.0 since 0.8.0)
     herdr = {
-      url = "github:herdrdev/herdr/v0.9.0";
+      url = "github:herdrdev/herdr/v0.9.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
