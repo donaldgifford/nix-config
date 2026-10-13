@@ -43,24 +43,40 @@ in
         IdentityFile = "~/.ssh/root_home.pub";
       };
 
+      # ── Intel NUC ─────────────────────────────────────────────────────────
+      # NOTE: Old ns2, migrated away from using as nameserver.
+      "nuc" = {
+        Hostname = "10.10.11.187";
+        User = "root";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+
       # ── DNS Servers ─────────────────────────────────────────────────────────
-      "dns01" = {
-        Hostname = "10.10.10.53";
-        User = "rpi";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      "dns02" = {
-        Hostname = "10.10.10.54";
-        User = "rpi";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
+
       "dns03" = {
+        # NOTE: needs removal of physical device first.
+        Hostname = "10.10.10.195";
+        User = "rpi";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+
+      "dns03-wifi" = {
+        # NOTE: needs removal of physical device first.
         Hostname = "10.10.10.194";
         User = "rpi";
         IdentityFile = "~/.ssh/root_home.pub";
       };
+
       "dns04" = {
+        # NOTE: needs removal of physical device first.
         Hostname = "10.10.10.200";
+        User = "rpi";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+
+      "dns04-fix" = {
+        # NOTE: needs removal of physical device first.
+        Hostname = "192.168.0.200";
         User = "rpi";
         IdentityFile = "~/.ssh/root_home.pub";
       };
@@ -77,8 +93,14 @@ in
         IdentityFile = "~/.ssh/root_home.pub";
       };
 
-      "ns3 10.10.10.192" = {
-        Hostname = "10.10.10.192";
+      "ns1-servers 10.10.11.190" = {
+        Hostname = "10.10.11.190";
+        User = "root";
+        IdentityFile = "~/.ssh/root_home.pub";
+      };
+
+      "ns2-servers 10.10.11.191" = {
+        Hostname = "10.10.11.191";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
@@ -96,44 +118,23 @@ in
         IdentityFile = "~/.ssh/github.pub";
       };
 
-      # ── Forgejo (fartlab) ───────────────────────────────────────────────────
-      "git.fartlab.dev" = {
-        User = "git";
-        IdentityFile = "~/.ssh/donald.pub";
-      };
       # ── r740a (fartlab) ───────────────────────────────────────────────────
       "r740a 10.10.11.20" = {
         Hostname = "10.10.11.20";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
+
       # ── r640 (fartlab) ───────────────────────────────────────────────────
       "r640a 10.10.11.21" = {
         Hostname = "10.10.11.21";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
+
       # ── srv01 (fartlab) ───────────────────────────────────────────────────
       "srv01 10.10.11.40" = {
         Hostname = "10.10.11.40";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      # ── beelink01 (fartlab) ───────────────────────────────────────────────────
-      "beelink01 10.10.11.30" = {
-        Hostname = "10.10.11.30";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      # ── beelink02 (fartlab) ───────────────────────────────────────────────────
-      "beelink02 10.10.11.31" = {
-        Hostname = "10.10.11.31";
-        User = "root";
-        IdentityFile = "~/.ssh/root_home.pub";
-      };
-      # ── beelink03 (fartlab) ───────────────────────────────────────────────────
-      "beelink03 10.10.11.32" = {
-        Hostname = "10.10.11.32";
         User = "root";
         IdentityFile = "~/.ssh/root_home.pub";
       };
