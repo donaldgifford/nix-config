@@ -3,8 +3,8 @@
 // this file; opencode and herdr both write that one, so it is not in the repo.
 //
 // V2 runs no language servers (an `lsp` block is accepted and ignored), so
-// the V1 LSP wiring from PR #127 is gone from here. The servers themselves
-// are still installed by home/common/opencode.nix.
+// the V1 LSP wiring from PR #127 is gone, servers included; nvim keeps its
+// own Mason copies.
 // See what V2 actually loads:  opencode debug config
 {
   "$schema": "https://opencode.ai/config.json",
