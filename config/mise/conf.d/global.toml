@@ -141,7 +141,7 @@ yarn = "4.13.0"
 # renovate: datasource=github-releases depName=donaldgifford/makefmt
 "github:donaldgifford/makefmt" = "0.0.3"
 # renovate: datasource=github-releases depName=donaldgifford/mdp
-"github:donaldgifford/mdp" = "0.3.0"
+"github:donaldgifford/mdp" = "0.6.1"
 # renovate: datasource=github-releases depName=donaldgifford/claudelint
 "github:donaldgifford/claudelint" = "0.3.0"
 

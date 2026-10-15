@@ -1,0 +1,16 @@
+// opencode V2 — linked to ~/.config/opencode/opencode.jsonc by home/common/configs.nix.
+// Terminal settings (theme, keybinds, TUI plugins) live in cli.json next to
+// this file; opencode and herdr both write that one, so it is not in the repo.
+//
+// V2 runs no language servers (an `lsp` block is accepted and ignored), so
+// the V1 LSP wiring from PR #127 is gone, servers included; nvim keeps its
+// own Mason copies.
+// See what V2 actually loads:  opencode debug config
+{
+  "$schema": "https://opencode.ai/config.json",
+  // V1 plugins do not load on V2 ("Plugin must export a default ..." in the
+  // log at startup). Both of these are V1-only until ported to @opencode/plugin:
+  //   "opencode-claude-code-bridge@0.2.1"    — upstream has no V2 release
+  //   "@donaldgifford/opencode-donald-loop"  — ours, donaldgifford/claude-skills
+  "plugins": []
+}

@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -66,6 +67,11 @@
       # ykman CLI. Not mise: the GitHub release is a .pkg/.msi + sdist, no
       # binary. Uses the OS PC/SC stack; FIDO subcommands need sudo on macOS.
       yubikey-manager
+
+      # ── Terminal multiplexer ────────────────────────────────────────────────
+      # herdr trial (INV-0002), side-by-side with tmux. A flake input rather
+      # than nixpkgs (which is on 0.7.5): the version is the tag in flake.nix.
+      inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # ── Misc ────────────────────────────────────────────────────────────────
       starship

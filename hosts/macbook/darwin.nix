@@ -71,7 +71,10 @@
     # CLI tools that work better via brew on macOS (prefer nix when possible)
     brews = [
       "mas" # Mac App Store CLI (needed for masApps below)
-      "anomalyco/tap/opencode" # opencode
+      # opencode V2. A separate formula that `conflicts_with "opencode"` (both
+      # install bin/opencode), and brew bundle installs before it cleans up:
+      # the first switch after moving to V2 needs a one-time `brew unlink opencode`.
+      "anomalyco/tap/opencode-v2"
       "rsync" # newer than macOS-shipped rsync 2.6.9
       "git-filter-repo" # git filter repo
       "poppler" # pdf renderer
