@@ -28,9 +28,13 @@ docz create design "Your Design Title"
 - **Abandoned**: Design was not pursued
 
 <!-- BEGIN DOCZ AUTO-GENERATED -->
-## All DESIGNs
+## All Design
 
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable MD013 -->
 | ID | Title | Status | Date | Author | Link |
-|----|-------|--------|------|--------|------|
+| --- | --- | --- | --- | --- | --- |
 | DESIGN-0001 | Claude Code Skills for Nix Config Management | Draft | 2026-04-11 | Donald Gifford | [0001-claude-code-skills-for-nix-config-management.md](0001-claude-code-skills-for-nix-config-management.md) |
+| DESIGN-0002 | CI status segment for starship and the Claude Code status line | Draft | 2026-10-21 | Donald Gifford | [0002-ci-status-segment-for-starship-and-the-claude-code-status-line.md](0002-ci-status-segment-for-starship-and-the-claude-code-status-line.md) |
+<!-- markdownlint-restore -->
 <!-- END DOCZ AUTO-GENERATED -->

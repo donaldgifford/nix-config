@@ -28,9 +28,13 @@ docz create impl "Your Implementation Title"
 - **Cancelled**: Plan was abandoned
 
 <!-- BEGIN DOCZ AUTO-GENERATED -->
-## All IMPLs
+## All Implementation Plans
 
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable MD013 -->
 | ID | Title | Status | Date | Author | Link |
-|----|-------|--------|------|--------|------|
+| --- | --- | --- | --- | --- | --- |
 | IMPL-0001 | Claude Code Nix Config Skills Plugin | Draft | 2026-04-16 | Donald Gifford | [0001-claude-code-nix-config-skills-plugin.md](0001-claude-code-nix-config-skills-plugin.md) |
+| IMPL-0002 | CI status segment: script, starship modules, Claude status line | Draft | 2026-10-21 | Donald Gifford | [0002-ci-status-segment-script-starship-modules-claude-status-line.md](0002-ci-status-segment-script-starship-modules-claude-status-line.md) |
+<!-- markdownlint-restore -->
 <!-- END DOCZ AUTO-GENERATED -->
