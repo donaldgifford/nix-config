@@ -19,6 +19,7 @@
     ./common/fonts.nix
     ./common/onepassword-plugins.nix
     ./common/temporal-oidc.nix
+    ./common/ci-status.nix
   ];
 
   home.username = "donaldgifford";
