@@ -5,6 +5,7 @@ format = """
 $directory\
 $git_branch\
 $git_status\
+${custom.ci_bk_yellow}${custom.ci_bk_green}${custom.ci_bk_red}${custom.ci_gh_yellow}${custom.ci_gh_green}${custom.ci_gh_red}${custom.ci_pr}\
 $nodejs\
 $bun\
 $rust\
@@ -123,6 +124,61 @@ format = "[$indicator]($style)"
 style = "green bold"
 
 
+
+# ── CI status (ci-status, docs/design/0002) ─────────────────────────────────
+# One module per segment per colour: a custom module has one fixed style and
+# its output is literal text, so `when` picks the colour. Each call reads a
+# cache only (~20 ms); a stale entry spawns a detached refresh.
+
+[custom.ci_bk_yellow]
+when = "ci-status --is bk yellow"
+command = "ci-status --format starship --segment bk"
+shell = ["bash", "--noprofile", "--norc"]
+style = "yellow"
+format = " [$output]($style)"
+
+[custom.ci_bk_green]
+when = "ci-status --is bk green"
+command = "ci-status --format starship --segment bk"
+shell = ["bash", "--noprofile", "--norc"]
+style = "green"
+format = " [$output]($style)"
+
+[custom.ci_bk_red]
+when = "ci-status --is bk red"
+command = "ci-status --format starship --segment bk"
+shell = ["bash", "--noprofile", "--norc"]
+style = "red"
+format = " [$output]($style)"
+
+[custom.ci_gh_yellow]
+when = "ci-status --is gh yellow"
+command = "ci-status --format starship --segment gh"
+shell = ["bash", "--noprofile", "--norc"]
+style = "yellow"
+format = " [$output]($style)"
+
+[custom.ci_gh_green]
+when = "ci-status --is gh green"
+command = "ci-status --format starship --segment gh"
+shell = ["bash", "--noprofile", "--norc"]
+style = "green"
+format = " [$output]($style)"
+
+[custom.ci_gh_red]
+when = "ci-status --is gh red"
+command = "ci-status --format starship --segment gh"
+shell = ["bash", "--noprofile", "--norc"]
+style = "red"
+format = " [$output]($style)"
+
+[custom.ci_pr]
+when = "ci-status --format starship --segment pr | grep -q ."
+command = "ci-status --format starship --segment pr"
+shell = ["bash", "--noprofile", "--norc"]
+style = "dimmed"
+format = " [$output]($style)"
+
 # Warm Burnout Dark: Starship palette
 # Paste this into your ~/.config/starship.toml
 # Then set: palette = 'warm_burnout_dark'
@@ -145,7 +201,7 @@ verdigris = "#96b898"
 steel_patina = "#90aec0"
 error = "#f49090"
 red = "#f06b73"
-green = "#70bf56"
+green = "#b4bc78" # dried sage, as herdr/eza/claude-colors use (ANSI green in ghostty stays #70bf56)
 yellow = "#fdb04c"
 blue = "#4fbfff"
 magenta = "#d0a1ff"
