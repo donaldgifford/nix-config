@@ -9,7 +9,7 @@ let
   fontDir = ./fonts;
   hasBerkeleyMono = builtins.pathExists "${fontDir}/BerkeleyMonoNerdFontRegular";
 
-  targetPrefix = if pkgs.stdenv.isDarwin then "Library/Fonts" else ".local/share/fonts";
+  targetPrefix = if pkgs.stdenv.hostPlatform.isDarwin then "Library/Fonts" else ".local/share/fonts";
 in
 {
   home.activation.installFonts = lib.mkIf hasBerkeleyMono (

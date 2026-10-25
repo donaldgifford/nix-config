@@ -59,7 +59,7 @@ deadnix .          # find unused nix code
 ## Key Patterns
 
 - **`mkOutOfStoreSymlink`**: Config files in `config/` are symlinked (not copied) into the Nix store, so edits take effect immediately without rebuilding.
-- **Platform conditionals**: `packages.nix` uses `lib.optionals pkgs.stdenv.isLinux` / `isDarwin` for platform-specific packages.
+- **Platform conditionals**: `packages.nix` uses `lib.optionals pkgs.stdenv.hostPlatform.isLinux` / `isDarwin` for platform-specific packages.
 - **1Password integration**: SSH agent and git commit signing go through 1Password on both platforms (different socket paths per OS).
 - **Inputs follow nixpkgs**: Both `nix-darwin` and `home-manager` inputs follow the same `nixpkgs` to avoid version conflicts.
 - **Determinate Nix**: macOS uses Determinate Systems installer (`nix.enable = false` in darwin.nix since Determinate manages the daemon).

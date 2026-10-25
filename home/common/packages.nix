@@ -82,7 +82,7 @@
       btop
       yazi
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       # ── Linux-only ──────────────────────────────────────────────────────────
       # ── 1Password ────────────────────────────────────────────────────────────
       _1password-cli # op CLI — required for SSH agent and git signing
@@ -99,7 +99,7 @@
       xdg-utils
 
     ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       # ── macOS-only ──────────────────────────────────────────────────────────
       ghostty-bin
       checkmake
