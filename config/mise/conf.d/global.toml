@@ -4,7 +4,7 @@
 # renovate: datasource=github-tags depName=golang/go extractVersion=^go(?<version>.+)$
 go = "1.26.6"
 # renovate: datasource=node-version depName=node
-node = "24.14.0"
+node = "24.22.1"
 # renovate: datasource=github-tags depName=rust-lang/rust
 rust = "1.93.1"
 # renovate: datasource=github-releases depName=astral-sh/uv

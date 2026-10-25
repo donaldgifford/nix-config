@@ -4,5 +4,23 @@
     "github>donaldgifford/renovate-config",
     "github>donaldgifford/renovate-config:nix",
     "github>donaldgifford/renovate-config:ci"
-  ]
+  ],
+  // The :nix preset only adds packageRules. The nix manager is beta and off
+  // by default, so without this Renovate never reads flake.nix / flake.lock.
+  "nix": {
+    "enabled": true
+  },
+  // Branch-tracking inputs (nixpkgs-unstable, nix-darwin, home-manager) only
+  // move through lock file maintenance: a weekly `nix flake update` PR.
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  },
+  // The default mise patterns cover ~/.config/mise/conf.d, not this repo's
+  // config/mise/conf.d (linked there by home/common/mise.nix).
+  "mise": {
+    "managerFilePatterns": ["**/config/mise/conf.d/*.toml"]
+  },
+  // Raise PRs for known CVEs (OSV database) regardless of schedule.
+  "osvVulnerabilityAlerts": true
 }

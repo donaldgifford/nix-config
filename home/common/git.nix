@@ -7,7 +7,7 @@
 
 let
   op-ssh-sign =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
     else
       "${pkgs._1password-gui}/bin/op-ssh-sign";
@@ -49,11 +49,12 @@ in
         pager = "hunk pager";
       };
 
-      extraConfig = {
-        "url \"ssh://git@github.com/donaldgifford\"" = {
-          insteadOf = "https://github.com/donaldgifford";
-        };
-      };
+      # HTTPS remotes for my repos go over SSH (1Password key), never the gh
+      # OAuth token, which lacks the `workflow` scope. Must be a top-level
+      # `url` key: `settings` sections map 1:1 to gitconfig sections, so the
+      # old `extraConfig = { "url \"…\"" … }` became an ignored
+      # [extraConfig.url …] section.
+      url."ssh://git@github.com/donaldgifford".insteadOf = "https://github.com/donaldgifford";
 
       # interactive.diffFilter = "delta --color-only";  # disabled while testing hunk
 
