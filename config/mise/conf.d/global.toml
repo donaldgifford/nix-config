@@ -131,7 +131,7 @@ yarn = "4.13.0"
 # renovate: datasource=npm depName=fleetctl
 "npm:fleetctl" = "4.83.0"
 # renovate: datasource=npm depName=pnpm
-"pnpm" = "10.33.2"
+"pnpm" = "10.34.5"
 
 # ── donaldgifford ─────────────────────────────────────────────────────────────
 # renovate: datasource=github-releases depName=donaldgifford/forge
