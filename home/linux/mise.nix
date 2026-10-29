@@ -27,8 +27,6 @@
       settings = {
         # Auto-install tools when entering a directory with a mise.toml
         not_found_auto_install = true;
-        # How often to check plugins for updates
-        plugin_autoupdate_last_check_duration = "1 week";
         # Directories to always trust (no confirmation prompt)
         trusted_config_paths = [
           "~/code"
