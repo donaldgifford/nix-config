@@ -33,6 +33,15 @@
     herdr = {
       url = "github:herdrdev/herdr/v0.9.5";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
+    # Only herdr's build toolchain. Top-level so it moves with `nix flake
+    # update` / Renovate instead of staying at whatever herdr's tag locked
+    # (an old copy used the deprecated stdenv.isLinux / isDarwin).
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lazyvim-nix = {

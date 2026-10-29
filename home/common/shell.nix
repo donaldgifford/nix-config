@@ -376,6 +376,10 @@
   programs.nushell = {
     enable = true;
 
+    # Keep the pre-26.11 default (silences HM's warning): env is set by hand
+    # in extraEnv below rather than imported from home.sessionVariables.
+    loadSessionVariables = false;
+
     # Nushell config
     extraConfig = ''
       $env.config = {
