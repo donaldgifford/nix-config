@@ -27,4 +27,4 @@ jq = "latest"
 # renovate: datasource=github-releases depName=orhun/git-cliff
 git-cliff = "latest"
 # renovate: datasource=github-releases depName=localstack/lstk
-"github:localstack/lstk" = "latest"
+"github:localstack/lstk" = "1.4.2"

@@ -167,7 +167,7 @@ syft = "1.42.3"
 # renovate: datasource=github-releases depName=golang-migrate/migrate
 "github:golang-migrate/migrate" = "4.18.1"
 # renovate: datasource=github-releases depName=localstack/lstk
-"github:localstack/lstk" = "0.9.0"
+"github:localstack/lstk" = "1.4.2"
 # renovate: datasource=github-releases depName=sigstore/cosign
 cosign = "3.1.1"
 # git diff pager — was a nix flake input, but it pulled bun2nix which pinned
@@ -179,3 +179,5 @@ cosign = "3.1.1"
 imagemagick = "7.1.2-31"
 # renovate: datasource=github-releases depName=can1357/oh-my-pi
 "github:can1357/oh-my-pi" = "18.1.14"
+# renovate: datasource=github-releases depName=buildkite/cli
+"github:buildkite/cli" = "3.66.0"

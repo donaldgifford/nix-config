@@ -31,7 +31,7 @@
     # Builds from source (rust); nixpkgs has herdr too but lags (0.7.5 in 26.11).
     # (repo moved ogulcancelik/herdr → herdrdev/herdr; Apache-2.0 since 0.8.0)
     herdr = {
-      url = "github:herdrdev/herdr/v0.9.4";
+      url = "github:herdrdev/herdr/v0.9.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
