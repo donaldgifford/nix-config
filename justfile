@@ -152,6 +152,35 @@ clean days="14":
 optimise:
     sudo nix store optimise
 
+# SBOM of the running system into .sbom/ (CycloneDX, SPDX, CSV) via sbomnix
+[group('security')]
+sbom:
+    #!/usr/bin/env bash
+    set -eu -o pipefail
+    out={{ flake }}/.sbom; mkdir -p "$out"; cd "$out"
+    name="$(scutil --get LocalHostName 2>/dev/null || hostname -s)-$(date +%Y%m%d-%H%M)"
+    # sbomnix reads names, licenses and CPEs from NIX_PATH's nixpkgs: use the locked one.
+    nixpkgs=$(nix eval --raw --impure --expr '(builtins.getFlake "{{ flake }}").inputs.nixpkgs.outPath')
+    # sbomnix runs from the pinned flake input, not installed (see packages.nix)
+    sbomnix=$(nix build --no-link --print-out-paths --impure --expr \
+      '(builtins.getFlake "{{ flake }}").inputs.sbomnix.packages.${builtins.currentSystem}.sbomnix')
+    NIX_PATH="nixpkgs=$nixpkgs" "$sbomnix/bin/sbomnix" /run/current-system --verbose=0 \
+      --cdx="$name.cdx.json" --spdx="$name.spdx.json" --csv="$name.csv"
+    ln -sf "$name.cdx.json" latest.cdx.json
+    echo "$out/$name.cdx.json ($(jq '.components | length' "$name.cdx.json") components)"
+
+# Scan the latest SBOM with grype (regenerated if the system changed). `just scan high` exits non-zero on high+
+[group('security')]
+scan fail_on="":
+    #!/usr/bin/env bash
+    set -eu -o pipefail
+    sbom={{ flake }}/.sbom/latest.cdx.json
+    if [ ! -e "$sbom" ] || [ -n "$(find /nix/var/nix/profiles -maxdepth 1 -name system -newer "$sbom")" ]; then
+      just sbom
+    fi
+    fail_on="{{ fail_on }}"
+    grype "sbom:$sbom" ${fail_on:+--fail-on "$fail_on"}
+
 # Format all tracked nix files (except the generated hardware-configuration.nix)
 [group('check')]
 fmt:

@@ -41,6 +41,12 @@
       tea # Gitea CLI
       cargo
 
+      # ── Supply chain: `just sbom` / `just scan` ────────────────────────────
+      # grype matches the SBOM's CPEs against its vulnerability DB. sbomnix is
+      # not installed: its flake drags its own nixpkgs (+2.4 GiB), so
+      # `just sbom` runs it on demand from the pinned flake input instead.
+      grype
+
       # ── Nix tooling ─────────────────────────────────────────────────────────
       nixd
       nil

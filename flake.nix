@@ -44,6 +44,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # SBOMs of the running system (`just sbom`). Upstream flake, not nixpkgs:
+    # nixpkgs-unstable's sbomnix fails to build (typepy 2 vs sqliteschema) and
+    # 26.05's 1.7.6 can't read names/versions of structuredAttrs packages,
+    # dropping ~60% of versions. Deliberately does NOT follow nixpkgs, for the
+    # same reason. Tag-pinned: Renovate's nix manager proposes new tags.
+    sbomnix.url = "github:tiiuae/sbomnix/v1.9.0";
+
     lazyvim-nix = {
       url = "github:pfassina/lazyvim-nix/a88c488cfd96e1d4274d34d2e35ddbe99dbe5757";
       inputs.nixpkgs.follows = "nixpkgs-stable";
