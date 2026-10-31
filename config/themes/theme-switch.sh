@@ -7,6 +7,7 @@
 #   symlink   ~/.config/themes/current -> <name>/  (tmux/fzf/bat/eza/nvim read it)
 #   ghostty   rewrites the `theme = ` line in config/ghostty/config
 #   herdr     splices <name>/herdr.toml between THEME:BEGIN/END markers
+#   rex       imports the ghostty theme file via client.theme.import
 #   tmux      re-sources config live
 # New shells pick up env (BAT_THEME, EZA_CONFIG_DIR, fzf colors) on start.
 set -euo pipefail
@@ -59,6 +60,25 @@ if [ -f "$dir/herdr.toml" ] && grep -q "THEME:BEGIN" "$herdr_cfg"; then
   write_through "$herdr_cfg" "$tmp"
 fi
 
+# ── rex: import the same Ghostty theme file into the Rex app ─────────────────
+# Rex has no theme setting in init.lua; its client.theme.import action reads a
+# Ghostty theme file and selects it. Needs Remote Control on (Rex Settings >
+# Rex Server). rex is only on PATH inside Rex terminals, so fall back to the
+# server's bundled CLI; --autostart=false so switching never spawns a server.
+rex_bin="${REX_BIN_DIR:-$HOME/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS}/rex"
+if [ -x "$rex_bin" ]; then
+  rex_theme=""
+  for d in "$HOME/.config/ghostty/themes" \
+    "$HOME/Applications/Home Manager Apps/Ghostty.app/Contents/Resources/ghostty/themes"; do
+    [ -f "$d/$ghostty_theme" ] && { rex_theme="$d/$ghostty_theme"; break; }
+  done
+  if [ -z "$rex_theme" ]; then
+    echo "  rex: no Ghostty theme file for '$ghostty_theme', skipped" >&2
+  elif ! "$rex_bin" --autostart=false "do" client.theme.import path="$rex_theme" >/dev/null 2>&1; then
+    echo "  rex: not updated (app closed, or Remote Control off in Settings > Rex Server)" >&2
+  fi
+fi
+
 # ── bat: make sure vendored tmThemes are in the cache ────────────────────────
 if ! bat --list-themes 2>/dev/null | grep -q "Warm Burnout"; then
   bat cache --build >/dev/null
@@ -70,5 +90,5 @@ if tmux info &>/dev/null; then
 fi
 
 echo "theme → $name"
-echo "  live now:   tmux, eza/bat/fzf (new shells), nvim (new instances)"
+echo "  live now:   tmux, rex, eza/bat/fzf (new shells), nvim (new instances)"
 echo "  reload:     ghostty cmd+shift+,   herdr: restart server"
