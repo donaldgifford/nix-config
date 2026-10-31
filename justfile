@@ -152,6 +152,17 @@ clean days="14":
 optimise:
     sudo nix store optimise
 
+# Pin CPE vendors that sbomnix can't resolve. It drops a vendor when its
+# daily cpedict lists the product under several (brotli: google + a Go port),
+# falling back to vendor = product, which grype then never matches.
+_fix-cpes file:
+    #!/usr/bin/env bash
+    set -eu -o pipefail
+    jq '{"brotli": "google"} as $v | .components |= map(
+          $v[.name // ""] as $vendor
+          | if $vendor and .cpe then .cpe |= sub("^cpe:2\\.3:a:[^:]+:"; "cpe:2.3:a:\($vendor):") else . end)' \
+      "{{ file }}" > "{{ file }}.tmp" && mv "{{ file }}.tmp" "{{ file }}"
+
 # SBOM of the running system into .sbom/ (CycloneDX, SPDX, CSV) via sbomnix
 [group('security')]
 sbom:
@@ -159,13 +170,12 @@ sbom:
     set -eu -o pipefail
     out={{ flake }}/.sbom; mkdir -p "$out"; cd "$out"
     name="$(scutil --get LocalHostName 2>/dev/null || hostname -s)-$(date +%Y%m%d-%H%M)"
-    # sbomnix reads names, licenses and CPEs from NIX_PATH's nixpkgs: use the locked one.
-    nixpkgs=$(nix eval --raw --impure --expr '(builtins.getFlake "{{ flake }}").inputs.nixpkgs.outPath')
     # sbomnix runs from the pinned flake input, not installed (see packages.nix)
     sbomnix=$(nix build --no-link --print-out-paths --impure --expr \
       '(builtins.getFlake "{{ flake }}").inputs.sbomnix.packages.${builtins.currentSystem}.sbomnix')
-    NIX_PATH="nixpkgs=$nixpkgs" "$sbomnix/bin/sbomnix" /run/current-system --verbose=0 \
+    "$sbomnix/bin/sbomnix" /run/current-system --verbose=0 \
       --cdx="$name.cdx.json" --spdx="$name.spdx.json" --csv="$name.csv"
+    just _fix-cpes "$out/$name.cdx.json"
     ln -sf "$name.cdx.json" latest.cdx.json
     echo "$out/$name.cdx.json ($(jq '.components | length' "$name.cdx.json") components)"
 
@@ -180,6 +190,57 @@ scan fail_on="":
     fi
     fail_on="{{ fail_on }}"
     grype "sbom:$sbom" ${fail_on:+--fail-on "$fail_on"}
+
+# What a bump would do to CVEs: scan the running system vs a bumped build (lock untouched, nothing switched)
+[group('security')]
+cves input="":
+    #!/usr/bin/env bash
+    set -eu -o pipefail
+    cd {{ flake }}
+    tmp=$(mktemp -d); tmp=$(cd "$tmp" && pwd -P)   # physical path — nix rejects the /var symlink
+    trap 'rm -rf "$tmp"' EXIT
+    nix flake update {{ input }} --output-lock-file "$tmp/new.lock" >/dev/null
+    just _lock-diff-files flake.lock "$tmp/new.lock"
+    echo
+    echo "building the bumped system…"
+    nix build {{ system_attr }} --reference-lock-file "$tmp/new.lock" --no-write-lock-file --out-link result-plan
+    sbomnix=$(nix build --no-link --print-out-paths --impure --expr \
+      '(builtins.getFlake "{{ flake }}").inputs.sbomnix.packages.${builtins.currentSystem}.sbomnix')
+    echo "SBOMs and scans…"
+    (cd "$tmp"
+      "$sbomnix/bin/sbomnix" /run/current-system \
+        --verbose=0 --cdx=now.cdx.json --spdx=now.spdx.json --csv=now.csv
+      "$sbomnix/bin/sbomnix" {{ flake }}/result-plan \
+        --verbose=0 --cdx=bump.cdx.json --spdx=bump.spdx.json --csv=bump.csv) >/dev/null 2>&1
+    just _fix-cpes "$tmp/now.cdx.json"; just _fix-cpes "$tmp/bump.cdx.json"
+    grype -q sbom:"$tmp/now.cdx.json" -o json --file "$tmp/now.json"
+    grype -q sbom:"$tmp/bump.cdx.json" -o json --file "$tmp/bump.json"
+    jq -rn --slurpfile a "$tmp/now.json" --slurpfile b "$tmp/bump.json" '
+      def sevs: ["Critical","High","Medium","Low","Negligible","Unknown"];
+      def rows(m): [m[0].matches[] | {k: (.vulnerability.id + "|" + .artifact.name),
+          id: .vulnerability.id, sev: .vulnerability.severity, pkg: .artifact.name, ver: .artifact.version,
+          fixed: (.vulnerability.fix.state == "fixed"), fix: (.vulnerability.fix.versions | join(","))}] | unique_by(.k);
+      def count(xs): [sevs[] as $s | "\($s[:4]) \([xs[] | select(.sev == $s)] | length)"] | join("  ");
+      def list(xs; f): [xs[] | select(.sev == "Critical" or .sev == "High")] | sort_by(. as $r | (sevs | index($r.sev)), .pkg)
+        | if length == 0 then "  (none critical/high)" else .[] | f end;
+      rows($a) as $now | rows($b) as $bump | ($now | map(.k)) as $nk | ($bump | map(.k)) as $bk
+      | [$now[] | select(.k as $k | $bk | index($k) | not)] as $gone
+      | [$bump[] | select(.k as $k | $nk | index($k) | not)] as $new
+      | [$bump[] | select(.fixed)] as $waiting | [$bump[] | select(.fixed | not)] as $nofix
+      | "",
+        "now:           \($now | length) findings   \(count($now))",
+        "after bump:    \($bump | length) findings   \(count($bump))",
+        "",
+        "FIXED BY THIS BUMP (\($gone | length))", list($gone; "  \(.sev[:4])  \(.pkg) \(.ver)  \(.id)"),
+        "",
+        "NEW IN THIS BUMP (\($new | length))", list($new; "  \(.sev[:4])  \(.pkg) \(.ver)  \(.id)"),
+        "",
+        "STILL OPEN, FIX EXISTS UPSTREAM — waiting on nixpkgs, or overlay it (\($waiting | length))",
+        list($waiting; "  \(.sev[:4])  \(.pkg) \(.ver) -> \(.fix)  \(.id)"),
+        "",
+        "STILL OPEN, NO FIX YET (\($nofix | length))", list($nofix; "  \(.sev[:4])  \(.pkg) \(.ver)  \(.id)")'
+    echo
+    echo "apply with: just bump {{ if input == "" { "<input>" } else { input } }} && just switch   (or just update for all inputs)"
 
 # Format all tracked nix files (except the generated hardware-configuration.nix)
 [group('check')]
