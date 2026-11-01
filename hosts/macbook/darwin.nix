@@ -242,7 +242,9 @@
         "Workspace.terminalFontPointSize" = 16;
         "Workspace.terminalFontSmoothing" = false;
         "Workspace.terminalCopyOnSelect" = true;
-        "Workspace.terminalCursorStyleForced" = true;
+        # Off: forcing ignores programs' cursor-shape requests (DECSCUSR),
+        # which kills zsh-vi-mode's beam/block and nvim's mode cursors.
+        "Workspace.terminalCursorStyleForced" = false;
         "Workspace.terminalSelectionForeground" = "theme";
         "Workspace.terminalSmoothScrolling" = true;
         "Workspace.terminalUseThemePalette" = true;
