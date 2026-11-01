@@ -10,6 +10,10 @@
     enable = true;
     autocd = true;
     enableCompletion = true;
+    # compinit runs once, in initContent below, after zinit has extended fpath.
+    # HM's default early `compinit` saw a different fpath, so each call found
+    # the dump stale and rewrote it on every shell start (~700ms).
+    completionInit = "";
 
     # Zinit manages these — disable HM's built-in versions
     syntaxHighlighting.enable = false;
@@ -112,11 +116,16 @@
 
       # ── Completions infrastructure ────────────────────────────────────────
       autoload -Uz compinit
-      if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+      # Full rebuild (audit + dump, ~350ms) only when the dump is missing or a
+      # day old; otherwise trust it (-C). Plain array glob, not [[ x(#q...) ]]:
+      # without EXTENDED_GLOB that's a literal string, so it always rebuilt.
+      _zcompdump_stale=( ''${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24) )
+      if [[ ! -f ''${ZDOTDIR:-$HOME}/.zcompdump || -n $_zcompdump_stale ]]; then
         compinit
       else
         compinit -C
       fi
+      unset _zcompdump_stale
 
       zstyle ':completion:*' menu select
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
