@@ -247,7 +247,10 @@
         "Workspace.terminalCursorStyleForced" = false;
         "Workspace.terminalSelectionForeground" = "theme";
         "Workspace.terminalSmoothScrolling" = true;
-        "Workspace.terminalUseThemePalette" = true;
+        # Off ("Force theme palette for text"): remaps programs' own colors to
+        # the theme palette and adjusts low contrast, which mangles nvim's
+        # truecolor (neo-tree name fade, highlight backgrounds).
+        "Workspace.terminalUseThemePalette" = false;
 
         # Server / integrations
         "rex.client.remoteControl" = true; # theme-switch.sh needs `rex do`
