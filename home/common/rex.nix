@@ -12,5 +12,11 @@
     if [ -n "$REX_BIN_DIR" ]; then
       export PATH="$REX_BIN_DIR:$PATH"
     fi
+    # Rex renders OSC 8 hyperlinks, but supports-hyperlinks-style detection
+    # (Claude Code's PR links, etc.) only allowlists known TERM_PROGRAMs and
+    # "rex" isn't one, so links fall back to plain underlined text.
+    if [ "$TERM_PROGRAM" = rex ]; then
+      export FORCE_HYPERLINK=1
+    fi
   '';
 }

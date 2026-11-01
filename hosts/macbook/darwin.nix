@@ -214,6 +214,45 @@
       "com.apple.LaunchServices" = {
         LSQuarantine = false;
       };
+
+      # Rex app settings (Settings UI). Keybindings/actions live in
+      # config/rex/init.lua; Workspace.darkThemeID is owned by `theme`
+      # (config/themes/theme-switch.sh), so it's deliberately absent.
+      # Written on activation: restart Rex to see them, and note that UI
+      # changes not mirrored here are reverted on the next switch.
+      "com.superlogical.rex" = {
+        # Interface
+        "Workspace.tabStyle" = "vertical";
+        "Workspace.sidebarPosition" = "left";
+        "Workspace.sidebarCollapsed" = false;
+        "Workspace.sidebarShowsActivity" = false;
+        "Workspace.paneDensity" = "compact";
+        "Workspace.showsActivePaneBorder" = true;
+        "Workspace.activePaneBorderColor" = "green";
+        "Workspace.inactivePaneFadeMode" = "both";
+        "Workspace.usesStandardInactiveWindowPaneStyles" = true;
+        "Workspace.tabIconColorMode" = "activePanes";
+        "Workspace.tabIconCount" = 3;
+        "Workspace.tabIconTintMode" = "off";
+        "Workspace.shellIconTheme" = "default";
+
+        # Terminal
+        "Workspace.terminalFontName" = "BerkeleyMono Nerd Font";
+        "Workspace.terminalFontStyle" = "SemiCondensed";
+        "Workspace.terminalFontPointSize" = 16;
+        "Workspace.terminalFontSmoothing" = false;
+        "Workspace.terminalCopyOnSelect" = true;
+        "Workspace.terminalCursorStyleForced" = true;
+        "Workspace.terminalSelectionForeground" = "theme";
+        "Workspace.terminalSmoothScrolling" = true;
+        "Workspace.terminalUseThemePalette" = true;
+
+        # Server / integrations
+        "rex.client.remoteControl" = true; # theme-switch.sh needs `rex do`
+        "rex.server.tailnet-enabled" = true;
+        "rex.server.automatic-restart-enabled" = true;
+        "rex.agents.names-sessions" = true;
+      };
     };
   };
 
