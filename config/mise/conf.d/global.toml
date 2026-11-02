@@ -1,4 +1,5 @@
 [tool_alias]
+# docz-review ships in docz's GitHub releases; pinned under [tools] below.
 docz-review = "github:donaldgifford/docz"
 
 [tools]
@@ -140,15 +141,16 @@ yarn = "4.13.0"
 # renovate: datasource=github-releases depName=donaldgifford/forge
 "github:donaldgifford/forge" = "0.8.1"
 # renovate: datasource=github-releases depName=donaldgifford/docz
-"github:donaldgifford/docz" = "2.2.1"
-docz-review = { version = "2.2.1", asset_pattern = "docz-review_{{ os(macos=\"darwin\") }}_{{ arch(x64=\"amd64\") }}", bin = "docz-review" }
+"github:donaldgifford/docz" = "2.6.1"
+# renovate: datasource=github-releases depName=donaldgifford/docz
+docz-review = { version = "2.6.1", asset_pattern = "docz-review_{{ os(macos=\"darwin\") }}_{{ arch(x64=\"amd64\") }}", bin = "docz-review" }
 
 # renovate: datasource=github-releases depName=donaldgifford/makefmt
 "github:donaldgifford/makefmt" = "0.0.3"
 # renovate: datasource=github-releases depName=donaldgifford/mdp
-"github:donaldgifford/mdp" = "0.6.1"
+"github:donaldgifford/mdp" = "0.6.2"
 # renovate: datasource=github-releases depName=donaldgifford/claudelint
-"github:donaldgifford/claudelint" = "0.3.0"
+"github:donaldgifford/claudelint" = "0.4.2"
 
 # ── Misc ──────────────────────────────────────────────────────────────────────
 # marksman uses date-formatted releases — skip renovate
