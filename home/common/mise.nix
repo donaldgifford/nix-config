@@ -16,6 +16,15 @@
     # Settings stay here since they're not version-tracked.
     globalConfig = {
       settings = {
+        # config.toml is a read-only Nix store link, so send `mise use -g`
+        # writes to the repo-backed fragment instead (mise >= 2026.10.17).
+        # Tools already declared elsewhere stay in the file that declares them.
+        write_targets.tools = "~/.config/mise/conf.d/global.toml";
+        # GitHub token for mise (private aqua registry, release downloads,
+        # rate limits), read from the login keychain. If the item is missing,
+        # mise falls back to its other token sources. An exported GITHUB_TOKEN
+        # or MISE_GITHUB_TOKEN takes priority over this. See START_HERE.md.
+        github.credential_command = "security find-generic-password -s mise-aqua-registry -w";
         # Auto-install tools when entering a directory with a mise.toml
         not_found_auto_install = true;
         # Directories to always trust (no confirmation prompt)
