@@ -39,7 +39,9 @@
       # ── Cloud / Infra ───────────────────────────────────────────────────────
       awscli2
       tea # Gitea CLI
-      cargo
+      # No nixpkgs `cargo`: mise's `rust` provides cargo + rustc as a matched
+      # pair. A second, newer cargo on PATH mixes toolchains (proc-macro
+      # "can't find crate" errors in `cargo install`).
 
       # ── Supply chain: `just sbom` / `just scan` ────────────────────────────
       # grype matches the SBOM's CPEs against its vulnerability DB. sbomnix is

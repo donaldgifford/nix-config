@@ -122,8 +122,10 @@ cilium-hubble = "1.19.4"
 # ── Rust ──────────────────────────────────────────────────────────────────────
 # rust-analyzer uses date-formatted releases — skip renovate
 rust-analyzer = "2026-03-16"
-# renovate: datasource=crate depName=tree-sitter-cli
-"cargo:tree-sitter-cli" = "0.26.7"
+# Prebuilt release binary (aqua), not `cargo install`: no compile, and no
+# dependence on which cargo/rustc pair is first on PATH.
+# renovate: datasource=github-releases depName=tree-sitter/tree-sitter
+tree-sitter = "0.26.7"
 
 # ── Node ecosystem ────────────────────────────────────────────────────────────
 # renovate: datasource=npm depName=yarn
