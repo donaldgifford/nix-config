@@ -23,13 +23,13 @@
 # and the SDK's client.NewAPIKeyDynamicCredentials.
 #
 # Environment:
-#   TEMPORAL_OIDC_ISSUER     default https://auth.fartlab.dev/realms/fartlab
+#   TEMPORAL_OIDC_ISSUER     default https://auth.shart.sh/realms/fartlab
 #   TEMPORAL_OIDC_CLIENT_ID  default temporal-cli
 #   TEMPORAL_OIDC_SCOPE      default "openid offline_access"
 #   TEMPORAL_PROFILE         the temporal CLI profile; default fartlab
 set -euo pipefail
 
-issuer="${TEMPORAL_OIDC_ISSUER:-https://auth.fartlab.dev/realms/fartlab}"
+issuer="${TEMPORAL_OIDC_ISSUER:-https://auth.shart.sh/realms/fartlab}"
 client_id="${TEMPORAL_OIDC_CLIENT_ID:-temporal-cli}"
 scope="${TEMPORAL_OIDC_SCOPE:-openid offline_access}"
 profile="${TEMPORAL_PROFILE:-fartlab}"
