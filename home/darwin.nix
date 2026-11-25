@@ -39,6 +39,8 @@
     SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
     # set to 0 to try remote env
     CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "0";
+    # terminal-browser: usage telemetry and crash reports are on by default
+    TERMINAL_BROWSER_NO_TELEMETRY = "1";
   };
 
   home.sessionPath = [

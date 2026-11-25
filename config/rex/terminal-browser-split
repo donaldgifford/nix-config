@@ -1,0 +1,33 @@
+#!/bin/sh
+# Open a URL or local HTML file in a terminal-browser pane to the right of the
+# calling Rex pane, then fix its zoom. Works as $BROWSER for tools that run it
+# as one program with the URL as the only argument (mdp, docz-review), which
+# is why the flags live here. Installed on PATH by home/common/rex.nix. The
+# URL is passed through unchanged: docz-review refuses any host but the exact
+# 127.0.0.1 address it printed.
+opened=$(terminal-browser open --split right "$1") || exit
+printf '%s\n' "$opened"
+
+# In Rex a new pane often starts at 238% zoom, and terminal-browser saves that
+# per host name, ignoring the port, so it sticks to every local preview
+# (zenbu-labs/terminal-browser#166). Find the pane we just opened and press
+# reset-zoom (ctrl+0) in it. Drop this once upstream ships a fix or the --zoom
+# flag (zenbu-labs/terminal-browser#331).
+id=${opened#opened }
+id=${id%% *}
+rex=${REX_BIN_DIR:+$REX_BIN_DIR/}rex
+tries=0
+while [ "$tries" -lt 10 ]; do
+  pane=$(terminal-browser ls 2>/dev/null | awk -v id="$id" '$1 == id { print $2 }' | grep -o 'block:[0-9a-f-]*')
+  [ -n "$pane" ] && break
+  tries=$((tries + 1))
+  sleep 0.5
+done
+# The jump lands about a second after the pane opens, but not always, so
+# press twice.
+if [ -n "$pane" ]; then
+  for wait in 2 2; do
+    sleep "$wait"
+    "$rex" send-key --block "$pane" ctrl+0 >/dev/null 2>&1
+  done
+fi

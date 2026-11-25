@@ -1,0 +1,8 @@
+#!/bin/sh
+# $BROWSER for mdp inside Rex. Records the preview URL so the keymaps in
+# lua/plugins/mdp.lua can reopen a closed preview, then opens it in a
+# terminal-browser split.
+if [ -n "$MDP_URL_FILE" ]; then
+  printf '%s\n' "$1" >"$MDP_URL_FILE"
+fi
+exec terminal-browser-split "$1"
