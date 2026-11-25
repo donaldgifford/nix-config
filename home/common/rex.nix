@@ -1,6 +1,15 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
+  # Opens a URL in a terminal-browser split beside the calling pane (INV-0003).
+  # A real file on PATH because mdp and docz-review run $BROWSER as a single
+  # program; Neovim's keymaps call it too.
+  home.packages = [
+    (pkgs.writeScriptBin "terminal-browser-split" (
+      builtins.readFile ../../config/rex/terminal-browser-split
+    ))
+  ];
+
   # Rex (agentic terminal multiplexer) prepends its server's bin dir to PATH
   # and exports REX_BIN_DIR, but our zshrc then rebuilds PATH (krew, mise),
   # dropping `rex`. Re-prepend it last so the CLI matching the running server
@@ -17,6 +26,9 @@
     # "rex" isn't one, so links fall back to plain underlined text.
     if [ "$TERM_PROGRAM" = rex ]; then
       export FORCE_HYPERLINK=1
+      # docz-review pages open beside the agent, not in the system browser.
+      # Not $BROWSER: that would redirect every tool that opens a URL.
+      export DOCZ_REVIEW_BROWSER=terminal-browser-split
     fi
   '';
 }

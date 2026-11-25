@@ -91,6 +91,7 @@
       # ── Dev ──
       "docker-desktop" # Docker Desktop
       "authzed/tap/spicedb" # SpiceDB — cask in their tap; provides the schema LSP
+      "terminal-browser" # Chromium in a terminal pane (kitty graphics); see INV-0003
 
       # ── Browsers ──
       "firefox" # or "google-chrome", "firefox"

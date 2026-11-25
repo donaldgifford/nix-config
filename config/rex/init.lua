@@ -89,3 +89,25 @@ rex.action({
   end,
 })
 bind("alt+g", "lazygit_popup")
+
+-- ── Browser split (terminal-browser, INV-0003) ───────────────────────────
+-- Chromium in a pane to the right of the focused one; closes on quit (ctrl+q).
+rex.action({
+  name = "browser_split",
+  title = "Browser Split",
+  category = "Tools",
+  run = function(ctx)
+    local _, err = rex.session.new_split({
+      anchor_id = ctx.block_id,
+      direction = "horizontal",
+      side = "after",
+      focus = true,
+      layout = rex.layout.block({
+        flavor = TERMINAL .. ".shell",
+        options = { command = { "terminal-browser" }, cwd = focused_dir(ctx) },
+      }),
+    })
+    if err ~= nil then error(err, 0) end
+  end,
+})
+bind("b", "browser_split")
