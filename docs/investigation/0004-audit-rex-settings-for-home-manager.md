@@ -1,7 +1,7 @@
 ---
 id: INV-0004
 title: "Audit Rex settings for Home Manager"
-status: In Progress
+status: Concluded
 author: Donald Gifford
 created: 2026-11-26
 ---
