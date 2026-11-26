@@ -19,6 +19,11 @@ end
 local TERMINAL = "com.superlogical.terminal"
 
 local function focused_dir(ctx)
+  -- Ask where the foreground process really is. "pwd" only knows what a
+  -- program reported with OSC 7, and our zsh doesn't report it.
+  local p = rex.block.call(TERMINAL, "process", { block_id = ctx.block_id })
+  local cwd = p and p.foreground and p.foreground.cwd
+  if cwd then return cwd end
   local r = rex.block.call(TERMINAL, "pwd", { block_id = ctx.block_id })
   local pwd = r and r.pwd
   if not pwd then return nil end
