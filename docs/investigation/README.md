@@ -17,7 +17,7 @@ Design docs, plans, and implementation docs can reference investigations by ID
 | --- | --- | --- | --- | --- | --- |
 | INV-0001 | Split Dotfiles into Separate Repo | Open | 2026-04-27 | Donald Gifford | [0001-split-dotfiles-into-separate-repo.md](0001-split-dotfiles-into-separate-repo.md) |
 | INV-0002 | Evaluate herdr as tmux replacement | Open | 2026-07-06 | Donald Gifford | [0002-evaluate-herdr-as-tmux-replacement.md](0002-evaluate-herdr-as-tmux-replacement.md) |
-| INV-0004 | Audit Rex settings for Home Manager | In Progress | 2026-11-26 | Donald Gifford | [0004-audit-rex-settings-for-home-manager.md](0004-audit-rex-settings-for-home-manager.md) |
+| INV-0004 | Audit Rex settings for Home Manager | Concluded | 2026-11-26 | Donald Gifford | [0004-audit-rex-settings-for-home-manager.md](0004-audit-rex-settings-for-home-manager.md) |
 <!-- markdownlint-restore -->
 <!-- END DOCZ AUTO-GENERATED -->
 <!-- BEGIN DOCZ AUTO-GENERATED -->
