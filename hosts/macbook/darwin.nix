@@ -235,6 +235,8 @@
         "Workspace.tabIconCount" = 3;
         "Workspace.tabIconTintMode" = "off";
         "Workspace.shellIconTheme" = "default";
+        "Workspace.focusFollowsMouse" = true;
+        "Workspace.activityGrouping" = "priority";
 
         # Terminal
         "Workspace.terminalFontName" = "BerkeleyMono Nerd Font";
@@ -257,6 +259,8 @@
         "rex.server.tailnet-enabled" = true;
         "rex.server.automatic-restart-enabled" = true;
         "rex.agents.names-sessions" = true;
+        "rex.developer-mode-enabled" = true;
+        "RexAppUpdateChannel" = "preview";
       };
     };
   };
