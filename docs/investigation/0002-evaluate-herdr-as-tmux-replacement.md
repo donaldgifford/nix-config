@@ -14,11 +14,14 @@ created: 2026-07-06
 **Date:** 2026-07-06
 
 <!--toc:start-->
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable MD013 -->
 - [Question](#question)
 - [Hypothesis](#hypothesis)
 - [Context](#context)
 - [Current tmux Investment](#current-tmux-investment)
 - [What herdr Offers](#what-herdr-offers)
+- [Plugin Ecosystem](#plugin-ecosystem)
 - [Migration Mapping](#migration-mapping)
 - [Approach](#approach)
 - [Environment](#environment)
@@ -29,6 +32,7 @@ created: 2026-07-06
 - [Conclusion](#conclusion)
 - [Recommendation](#recommendation)
 - [References](#references)
+<!-- markdownlint-restore -->
 <!--toc:end-->
 
 ## Question
